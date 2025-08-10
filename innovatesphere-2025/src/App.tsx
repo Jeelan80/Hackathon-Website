@@ -1,32 +1,141 @@
-import { EVENT_CONFIG } from './utils/constants'
+import { useState } from 'react';
+import { AnimatedButton, Card, Modal, Accordion } from './components/ui';
+import { Layout } from './components/layout';
+import { HeroSection, AboutSection, BenefitsSection, ScheduleSection } from './components/sections';
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const accordionItems = [
+    {
+      id: '1',
+      title: 'What is InnovateSphere 2025?',
+      content: 'A 48-hour virtual hackathon focused on building AI solutions for social good.'
+    },
+    {
+      id: '2',
+      title: 'How do I register?',
+      content: 'Click the Register Now button and fill out the registration form.'
+    },
+    {
+      id: '3',
+      title: 'What are the prizes?',
+      content: 'We have ₹18,000 in total prizes including a ₹10,000 grand prize!'
+    }
+  ];
+
+  console.log('App component loaded with new components');
+  
   return (
-    <div className="min-h-screen bg-black">
-      {/* Temporary hero section to test glassmorphism */}
-      <div className="hero-gradient min-h-screen flex items-center justify-center p-8">
-        <div className="glass-card p-8 max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="gradient-text">{EVENT_CONFIG.name}</span>
-          </h1>
-          <h2 className="text-xl md:text-2xl text-gray-300 mb-8">
-            {EVENT_CONFIG.tagline}
+    <Layout onRegisterClick={() => setIsModalOpen(true)}>
+      {/* Enhanced Hero Section */}
+      <HeroSection onRegisterClick={() => setIsModalOpen(true)} />
+
+      {/* About Section */}
+      <AboutSection />
+
+      {/* Benefits Section */}
+      <BenefitsSection />
+
+      {/* Schedule Section */}
+      <ScheduleSection />
+
+      {/* Component Showcase Section */}
+      <section className="section-padding px-8">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-16 gradient-text">
+            Component Showcase
           </h2>
-          <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
-            {EVENT_CONFIG.description}
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-8 text-sm md:text-base">
-            <span className="glass-button">{EVENT_CONFIG.eventType}</span>
-            <span className="glass-button">October 24-26, 2025</span>
-            <span className="glass-button">{EVENT_CONFIG.totalPrizes}</span>
+          
+          {/* Cards Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <Card 
+              title="Glassmorphism Card" 
+              icon={<div className="w-8 h-8 bg-gradient-to-r from-primary-purple to-primary-blue rounded-full" />}
+              glow
+            >
+              <p className="text-white/80">
+                Beautiful glassmorphism effects with blur and transparency.
+              </p>
+            </Card>
+            
+            <Card 
+              title="Animated Interactions" 
+              icon={<div className="w-8 h-8 bg-gradient-to-r from-primary-blue to-primary-purple rounded-full animate-pulse" />}
+            >
+              <p className="text-white/80">
+                Smooth animations and hover effects powered by Framer Motion.
+              </p>
+            </Card>
+            
+            <Card 
+              title="Responsive Design" 
+              icon={<div className="w-8 h-8 bg-gradient-to-r from-primary-purple to-primary-blue rounded-full animate-bounce" />}
+            >
+              <p className="text-white/80">
+                Mobile-first design that works beautifully on all devices.
+              </p>
+            </Card>
           </div>
-          <button className="glass-button glow-effect animate-pulse-glow text-lg px-8 py-4 font-semibold">
-            Register Now
-          </button>
+
+          {/* FAQ Accordion */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-center mb-8 text-white">
+              Frequently Asked Questions
+            </h3>
+            <div className="max-w-3xl mx-auto">
+              <Accordion items={accordionItems} />
+            </div>
+          </div>
+
+          {/* Button Showcase */}
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-8 text-white">Button Variants</h3>
+            <div className="flex flex-wrap justify-center gap-4">
+              <AnimatedButton variant="primary" size="sm" onClick={() => {}}>
+                Primary Small
+              </AnimatedButton>
+              <AnimatedButton variant="secondary" size="md" onClick={() => {}}>
+                Secondary Medium
+              </AnimatedButton>
+              <AnimatedButton variant="ghost" size="lg" onClick={() => {}}>
+                Ghost Large
+              </AnimatedButton>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  )
+      </section>
+
+      {/* Modal */}
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        title="Registration"
+        size="md"
+      >
+        <div className="space-y-4">
+          <p>Welcome to InnovateSphere 2025!</p>
+          <p>This is a demo modal showcasing our glassmorphism design system.</p>
+          <div className="flex justify-end gap-4 mt-6">
+            <AnimatedButton 
+              variant="ghost" 
+              size="md" 
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancel
+            </AnimatedButton>
+            <AnimatedButton 
+              variant="primary" 
+              size="md" 
+              onClick={() => setIsModalOpen(false)}
+            >
+              Continue
+            </AnimatedButton>
+          </div>
+        </div>
+      </Modal>
+    </Layout>
+  );
 }
 
 export default App

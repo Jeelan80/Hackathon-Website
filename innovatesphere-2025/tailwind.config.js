@@ -50,5 +50,35 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      const newUtilities = {
+        '.glassmorphism': {
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+        },
+        '.glassmorphism-light': {
+          background: 'rgba(255, 255, 255, 0.15)',
+          backdropFilter: 'blur(15px)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+        },
+        '.glassmorphism-dark': {
+          background: 'rgba(0, 0, 0, 0.2)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        '.glow-purple': {
+          boxShadow: '0 0 20px rgba(79, 70, 229, 0.3)',
+        },
+        '.glow-blue': {
+          boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)',
+        },
+        '.glow-purple-strong': {
+          boxShadow: '0 0 40px rgba(79, 70, 229, 0.6)',
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 }

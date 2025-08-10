@@ -30,3 +30,45 @@ export const scaleOnHover = {
   whileTap: { scale: 0.95 },
   transition: { type: "spring", stiffness: 300, damping: 20 }
 };
+
+export const glowOnHover = {
+  whileHover: { 
+    boxShadow: '0 20px 40px rgba(79, 70, 229, 0.3)',
+    scale: 1.02 
+  },
+  transition: { duration: 0.3, ease: 'easeOut' }
+};
+
+export const slideInFromBottom = {
+  initial: { opacity: 0, y: 100 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease: "easeOut" }
+};
+
+export const slideInFromTop = {
+  initial: { opacity: 0, y: -100 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease: "easeOut" }
+};
+
+export const rotateIn = {
+  initial: { opacity: 0, rotate: -180 },
+  animate: { opacity: 1, rotate: 0 },
+  transition: { duration: 0.8, ease: "easeOut" }
+};
+
+export const pulseGlow = {
+  animate: {
+    boxShadow: [
+      '0 0 20px rgba(79, 70, 229, 0.4)',
+      '0 0 40px rgba(79, 70, 229, 0.8)',
+      '0 0 20px rgba(79, 70, 229, 0.4)'
+    ],
+    scale: [1, 1.05, 1]
+  },
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    ease: "easeInOut"
+  }
+};

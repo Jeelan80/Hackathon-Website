@@ -2,15 +2,15 @@
 export const EVENT_CONFIG = {
   name: "InnovateSphere 2025",
   tagline: "Code the Future for Social Good",
-  description: "Join the brightest minds for 48 hours of intense innovation, collaboration, and impact. Let's build a better world with AI.",
+  description: "Join the brightest minds for 18 hours of intense innovation, collaboration, and impact. Let's build a better world with AI.",
   dates: {
-    start: new Date("2025-10-24"),
-    end: new Date("2025-10-26"),
-    registration_deadline: new Date("2025-10-20"),
+    start: new Date("2025-08-23"),
+    end: new Date("2025-08-24"),
+    registration_deadline: new Date("2025-08-20"),
   },
   eventType: "Virtual Event",
-  totalPrizes: "$10,000 in Prizes",
-  duration: "48 hours",
+  totalPrizes: "₹18,000 in Prizes",
+  duration: "18 hours",
 } as const;
 
 // Color constants
@@ -25,3 +25,24 @@ export const COLORS = {
     border: "rgba(255, 255, 255, 0.2)",
   },
 } as const;
+// Prize structure
+export const PRIZES = [
+  {
+    rank: 1,
+    title: "Grand Prize",
+    amount: "₹10,000",
+    description: "First Place Winner"
+  },
+  {
+    rank: 2,
+    title: "Second Place",
+    amount: "₹5,000",
+    description: "Runner Up"
+  },
+  {
+    rank: 3,
+    title: "Third Place",
+    amount: "₹3,000",
+    description: "Third Place Winner"
+  }
+] as const;

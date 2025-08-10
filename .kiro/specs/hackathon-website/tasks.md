@@ -9,7 +9,7 @@
   - Create basic project structure with folders for components, hooks, utils, and styles
   - _Requirements: 6.1, 6.5_
 
-- [ ] 2. Create core UI components and glassmorphism system
+- [x] 2. Create core UI components and glassmorphism system
 
   - Implement GlassmorphismCard component with blur, opacity, and glow variants
   - Create AnimatedButton component with gradient backgrounds and hover effects
@@ -23,6 +23,7 @@
   - Create Header component with navigation and glassmorphism styling
   - Build Footer component with social links and contact information
   - Implement Layout component with responsive container and section spacing
+
   - Add responsive breakpoint handling and mobile-first design approach
   - Create custom hooks for responsive behavior and scroll detection
   - _Requirements: 1.5, 4.3, 6.3_
@@ -36,7 +37,7 @@
   - Implement key event information display with proper typography
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [ ] 5. Create About and Benefits sections with interactive cards
+- [x] 5. Create About and Benefits sections with interactive cards
 
   - Build AboutSection component explaining AI for social good theme
   - Implement BenefitsSection with icon-based glassmorphism cards
@@ -45,7 +46,8 @@
   - Implement responsive grid layouts for different screen sizes
   - _Requirements: 3.1, 3.2, 1.4_
 
-- [ ] 6. Implement Schedule section with timeline visualization
+- [x] 6. Implement Schedule section with timeline visualization
+
 
   - Create ScheduleSection component with vertical timeline design
   - Build timeline nodes with glassmorphism styling and event details
@@ -57,7 +59,7 @@
 - [ ] 7. Build Prizes section with visual hierarchy
 
   - Implement PrizesSection component displaying prize breakdown
-  - Create prize cards with different styling for Grand Prize, Second, Third, and special awards
+  - Create prize cards with different styling for Grand Prize (₹10,000), Second Place (₹5,000), and Third Place (₹3,000)
   - Add visual emphasis for higher-value prizes using gradients and glow effects
   - Implement responsive grid layout for prize display
   - Add subtle animations for prize reveal on scroll
