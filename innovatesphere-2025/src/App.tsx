@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatedButton, Card, Modal, Accordion } from './components/ui';
 import { Layout } from './components/layout';
-import { HeroSection, AboutSection, BenefitsSection, ScheduleSection } from './components/sections';
+import { HeroSection, AboutSection, BenefitsSection, ScheduleSection, PrizesSection, JudgesSection, SponsorsSection, FAQSection } from './components/sections';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,8 +40,17 @@ function App() {
       {/* Schedule Section */}
       <ScheduleSection />
 
+      {/* Prizes Section */}
+      <PrizesSection />
+
+      {/* Judges Section */}
+      <JudgesSection />
+
+      {/* Sponsors Section */}
+      <SponsorsSection />
+
       {/* Component Showcase Section */}
-      <section className="section-padding px-8">
+      <section className="pt-8 pb-16 md:pt-12 md:pb-24 px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-16 gradient-text">
             Component Showcase
@@ -76,16 +85,6 @@ function App() {
                 Mobile-first design that works beautifully on all devices.
               </p>
             </Card>
-          </div>
-
-          {/* FAQ Accordion */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold text-center mb-8 text-white">
-              Frequently Asked Questions
-            </h3>
-            <div className="max-w-3xl mx-auto">
-              <Accordion items={accordionItems} />
-            </div>
           </div>
 
           {/* Button Showcase */}
@@ -134,6 +133,9 @@ function App() {
           </div>
         </div>
       </Modal>
+
+      {/* FAQ Section */}
+      <FAQSection />
     </Layout>
   );
 }

@@ -10,92 +10,111 @@ import {
   FaTrophy,
   FaHandshake,
   FaClock,
-  FaCalendarAlt
+  FaCalendarAlt,
+  FaCoffee
 } from 'react-icons/fa';
 
 const ScheduleSection: React.FC = () => {
   const scheduleEvents = [
     {
-      time: "09:00 AM",
-      title: "Registration & Welcome",
-      description: "Check-in, team formation, and opening ceremony. Get ready to innovate!",
+      time: "3:00 PM",
+      title: "Registration Begins",
+      description: "Check-in, team formation, and welcome session. Get ready to innovate!",
       type: "ceremony" as const,
       icon: <FaHandshake className="w-5 h-5" />,
       duration: "1 hour"
     },
     {
-      time: "10:00 AM", 
-      title: "Hackathon Kickoff",
-      description: "Official start of the hackathon. Problem statements revealed and coding begins.",
+      time: "4:00 PM", 
+      title: "Hackathon Officially Starts",
+      description: "Opening ceremony, problem statements revealed, and rules explained.",
       type: "milestone" as const,
       icon: <FaPlay className="w-5 h-5" />,
       duration: "30 mins"
     },
     {
-      time: "10:30 AM",
+      time: "4:30 PM",
       title: "Hacking Begins",
       description: "Teams start working on their AI solutions for social good. Mentors available for guidance.",
       type: "workshop" as const,
       icon: <FaCode className="w-5 h-5" />,
-      duration: "12 hours"
+      duration: "2.5 hours"
     },
     {
-      time: "01:00 PM",
-      title: "Lunch Break",
-      description: "Networking lunch and informal mentorship sessions. Recharge and connect!",
+      time: "7:00 PM",
+      title: "Snacks Break",
+      description: "Quick refreshment break to recharge and network with other teams.",
+      type: "ceremony" as const,
+      icon: <FaUsers className="w-5 h-5" />,
+      duration: "30 mins"
+    },
+    {
+      time: "8:30 PM",
+      title: "Dinner Break",
+      description: "Networking dinner and informal mentorship sessions. Connect with industry professionals.",
       type: "ceremony" as const,
       icon: <FaUsers className="w-5 h-5" />,
       duration: "1 hour"
     },
     {
-      time: "02:00 PM",
-      title: "Continued Development",
-      description: "Back to coding! Mid-hackathon check-ins and technical workshops available.",
-      type: "workshop" as const,
-      icon: <FaCode className="w-5 h-5" />,
-      duration: "6 hours"
+      time: "1:00 AM",
+      title: "Midnight Coffee/Tea Break",
+      description: "Late night fuel! Coffee, tea, and light snacks to keep you energized.",
+      type: "ceremony" as const,
+      icon: <FaCoffee className="w-5 h-5" />,
+      duration: "30 mins"
     },
     {
-      time: "08:00 PM",
-      title: "Dinner & Networking",
-      description: "Evening meal and networking opportunities with industry professionals.",
+      time: "8:00 AM",
+      title: "Breakfast",
+      description: "Morning breakfast to fuel the final stretch of development.",
       type: "ceremony" as const,
       icon: <FaUsers className="w-5 h-5" />,
       duration: "1 hour"
     },
     {
-      time: "09:00 PM",
+      time: "9:00 AM",
       title: "Final Sprint",
-      description: "Last few hours to polish your solution and prepare presentations.",
+      description: "Last hour to polish your solution and prepare for submission.",
       type: "workshop" as const,
       icon: <FaCode className="w-5 h-5" />,
-      duration: "3 hours"
+      duration: "1 hour"
     },
     {
-      time: "12:00 AM",
+      time: "10:00 AM",
       title: "Submission Deadline",
       description: "All projects must be submitted. No more coding allowed after this point!",
       type: "milestone" as const,
       icon: <FaClock className="w-5 h-5" />,
-      duration: "1 hour"
+      duration: "15 mins"
     },
     {
-      time: "01:00 AM",
-      title: "Project Presentations",
-      description: "Teams present their solutions to judges. Showcase your innovation!",
+      time: "10:15 AM",
+      title: "PPT Submission Deadline",
+      description: "Final presentation slides must be submitted for judging.",
       type: "milestone" as const,
       icon: <FaChartLine className="w-5 h-5" />,
-      duration: "2 hours"
+      duration: "45 mins"
     },
     {
-      time: "03:00 AM",
-      title: "Judging & Awards",
-      description: "Final judging, winner announcements, and closing ceremony.",
+      time: "11:00 AM",
+      title: "Top 3 Teams Finalized",
+      description: "Judges announce the top 3 teams who will present to the panel.",
+      type: "milestone" as const,
+      icon: <FaTrophy className="w-5 h-5" />,
+      duration: "30 mins"
+    },
+    {
+      time: "11:30 AM",
+      title: "Event Closure",
+      description: "Winner announcements, awards ceremony, and closing remarks.",
       type: "ceremony" as const,
       icon: <FaTrophy className="w-5 h-5" />,
-      duration: "1 hour"
+      duration: "30 mins"
     }
   ];
+
+
 
   const getEventTypeColor = (type: string) => {
     switch (type) {
@@ -124,13 +143,13 @@ const ScheduleSection: React.FC = () => {
   };
 
   return (
-    <section id="schedule" className="section-padding px-8 bg-gradient-to-b from-black via-gray-900 to-black">
+    <section id="schedule" className="section-padding px-8 bg-gradient-to-b from-black via-gray-900 to-black min-h-screen">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
         >
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="text-center mb-16">
@@ -154,14 +173,24 @@ const ScheduleSection: React.FC = () => {
           {/* Timeline */}
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-purple via-primary-blue to-primary-purple transform md:-translate-x-1/2"></div>
+            <motion.div 
+              className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-purple via-primary-blue to-primary-purple transform md:-translate-x-1/2"
+              initial={{ scaleY: 0, opacity: 0 }}
+              whileInView={{ scaleY: 1, opacity: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              style={{ transformOrigin: "top" }}
+            />
 
             {/* Timeline Events */}
-            <div className="space-y-12">
+            <div className="space-y-12 pb-16">
               {scheduleEvents.map((event, index) => (
                 <motion.div
                   key={index}
-                  variants={fadeInUp}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   className={`relative flex items-center ${
                     index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   } flex-col md:gap-8`}
@@ -172,10 +201,16 @@ const ScheduleSection: React.FC = () => {
                       className={`w-12 h-12 rounded-full bg-gradient-to-r ${getEventTypeColor(event.type)} 
                         flex items-center justify-center text-white shadow-lg border-4 border-black`}
                       whileHover={{ scale: 1.1 }}
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      viewport={{ once: true }}
+                      initial={{ scale: 0, rotate: -180 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      transition={{ 
+                        duration: 0.6, 
+                        delay: index * 0.15,
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 15
+                      }}
                     >
                       {event.icon}
                     </motion.div>

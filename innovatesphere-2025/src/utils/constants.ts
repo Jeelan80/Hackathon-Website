@@ -46,3 +46,18 @@ export const PRIZES = [
     description: "Third Place Winner"
   }
 ] as const;
+// Schedule events
+export const SCHEDULE_EVENTS = [
+  { time: "3:00 PM", title: "Registration Begins", type: "ceremony" },
+  { time: "4:00 PM", title: "Hackathon Officially Starts", type: "milestone" },
+  { time: "4:30 PM", title: "Hacking Begins", type: "workshop" },
+  { time: "7:00 PM", title: "Snacks Break", type: "ceremony" },
+  { time: "8:30 PM", title: "Dinner Break", type: "ceremony" },
+  { time: "1:00 AM", title: "Midnight Coffee/Tea Break", type: "ceremony" },
+  { time: "8:00 AM", title: "Breakfast", type: "ceremony" },
+  { time: "9:00 AM", title: "Final Sprint", type: "workshop" },
+  { time: "10:00 AM", title: "Submission Deadline", type: "milestone" },
+  { time: "10:15 AM", title: "PPT Submission Deadline", type: "milestone" },
+  { time: "11:00 AM", title: "Top 3 Teams Finalized", type: "milestone" },
+  { time: "11:30 AM", title: "Event Closure", type: "ceremony" }
+] as const;

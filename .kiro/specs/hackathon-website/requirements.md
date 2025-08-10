@@ -38,7 +38,7 @@ InnovateSphere 2025 is a visually stunning, glassmorphism-themed hackathon websi
 
 1. WHEN a user wants to learn about the event THEN the system SHALL provide an "About the Hackathon" section explaining the AI for social good theme
 2. WHEN a user views benefits THEN the system SHALL display icon-based cards highlighting key benefits (solve problems, win prizes, network, learn, get hired)
-3. WHEN a user checks the schedule THEN the system SHALL show a clear timeline of the 48-hour event with key milestones
+3. WHEN a user checks the schedule THEN the system SHALL show a clear timeline of the 18-hour event from 3:00 PM to 11:30 AM with key milestones
 4. WHEN a user views prizes THEN the system SHALL display the complete prize breakdown including Grand Prize (₹10,000), Second Place (₹5,000), and Third Place (₹3,000)
 5. WHEN a user wants to see judges and mentors THEN the system SHALL provide a carousel/slider with professional headshots, names, titles, and company logos
 
