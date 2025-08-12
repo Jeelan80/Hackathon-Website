@@ -38,7 +38,7 @@ const AccessibilityTester: React.FC = () => {
     if (isOpen && testResults.length === 0) {
       runAccessibilityTests();
     }
-  }, [isOpen]);
+  }, [isOpen, testResults.length]);
 
   const totalIssues = testResults.reduce((sum, result) => sum + result.issues.length, 0);
   const hasIssues = totalIssues > 0;

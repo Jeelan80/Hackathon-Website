@@ -1,8 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { AccessibilityToolbar, AccessibilityTester } from '../accessibility';
-import { PerformanceDashboard } from '../monitoring';
+import { AccessibilityToolbar } from '../accessibility';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,11 +14,11 @@ const Layout: React.FC<LayoutProps> = ({ children, onRegisterClick }) => {
       {/* Accessibility Toolbar */}
       <AccessibilityToolbar />
       
-      {/* Accessibility Tester (Development only) */}
-      <AccessibilityTester />
+      {/* Accessibility Tester (Development only) - Currently hidden */}
+      {/* <AccessibilityTester /> */}
       
-      {/* Performance Dashboard (Development only) */}
-      <PerformanceDashboard />
+      {/* Performance Dashboard (Development only) - Currently hidden */}
+      {/* <PerformanceDashboard /> */}
       
       {/* Skip to main content for screen readers */}
       <a 
