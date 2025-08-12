@@ -3,7 +3,7 @@ import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
 import { initializeMonitoring } from './utils/monitoring';
 import { Modal } from './components/ui';
 import { Layout } from './components/layout';
-import { HeroSection, AboutSection, BenefitsSection, PrizesSection, CoordinatorsSection, LocationSection } from './components/sections';
+import { HeroSection, AboutSection, ThemesSection, BenefitsSection, PrizesSection, CoordinatorsSection, LocationSection } from './components/sections';
 import { LazyWrapper } from './components/loading';
 import { ErrorBoundary } from './components/error';
 import { 
@@ -35,6 +35,9 @@ function App() {
 
         {/* About Section */}
         <AboutSection />
+
+        {/* Themes Section */}
+        <ThemesSection />
 
         {/* Benefits Section */}
         <BenefitsSection />

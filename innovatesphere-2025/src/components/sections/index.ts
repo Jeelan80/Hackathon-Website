@@ -9,3 +9,4 @@ export { default as SponsorsSection } from './SponsorsSection';
 export { default as FAQSection } from './FAQSection';
 
 export { default as LocationSection } from './LocationSection';
+export { default as ThemesSection } from './ThemesSection';
