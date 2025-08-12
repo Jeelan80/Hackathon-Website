@@ -3,7 +3,7 @@ import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
 import { initializeMonitoring } from './utils/monitoring';
 import { Modal } from './components/ui';
 import { Layout } from './components/layout';
-import { HeroSection, AboutSection, BenefitsSection, PrizesSection } from './components/sections';
+import { HeroSection, AboutSection, BenefitsSection, PrizesSection, CoordinatorsSection, LocationSection } from './components/sections';
 import { LazyWrapper } from './components/loading';
 import { ErrorBoundary } from './components/error';
 import { 
@@ -57,6 +57,9 @@ function App() {
           <LazyJudgesSection />
         </LazyWrapper>
 
+        {/* Coordinators Section */}
+        <CoordinatorsSection />
+
         {/* Sponsors Section - Lazy Loaded */}
         <LazyWrapper skeletonVariant="card" skeletonCount={6}>
           <LazySponsorsSection />
@@ -68,7 +71,7 @@ function App() {
         <Modal 
           isOpen={isModalOpen} 
           onClose={() => setIsModalOpen(false)}
-          title="Register for InnovateSphere 2025"
+          title="Register for HACKFINITY"
           size="lg"
         >
           <LazyWrapper skeletonVariant="form">
@@ -83,6 +86,9 @@ function App() {
         <LazyWrapper skeletonVariant="card" skeletonCount={5}>
           <LazyFAQSection />
         </LazyWrapper>
+
+        {/* Location Section */}
+        <LocationSection />
       </Layout>
     </ErrorBoundary>
   );

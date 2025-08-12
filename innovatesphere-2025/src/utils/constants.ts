@@ -1,6 +1,6 @@
 // Event configuration constants
 export const EVENT_CONFIG = {
-  name: "InnovateSphere 2025",
+  name: "HACKFINITY",
   tagline: "Code the Future for Social Good",
   description: "Join the brightest minds for 18 hours of intense innovation, collaboration, and impact. Let's build a better world with AI.",
   dates: {
@@ -8,7 +8,7 @@ export const EVENT_CONFIG = {
     end: new Date("2025-08-24"),
     registration_deadline: new Date("2025-08-20"),
   },
-  eventType: "Virtual Event",
+  eventType: "Offline Hackathon",
   totalPrizes: "₹18,000 in Prizes",
   duration: "18 hours",
 } as const;

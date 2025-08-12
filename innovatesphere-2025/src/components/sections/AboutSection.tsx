@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { GlassmorphismCard } from '../ui';
 // import { FadeInOnScroll } from '../animations'; // TODO: Use this for enhanced animations
 import { fadeInUp, staggerContainer } from '../../utils/animations';
-import { FaRobot, FaUsers, FaGlobeAmericas, FaBullseye } from 'react-icons/fa';
+import { FaRobot, FaMapMarkerAlt, FaBullseye } from 'react-icons/fa';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 
 const AboutSection: React.FC = () => {
@@ -40,15 +40,15 @@ const AboutSection: React.FC = () => {
                   </div>
                   
                   <p className="text-gray-300 leading-relaxed text-lg">
-                    InnovateSphere 2025 is more than just a hackathon—it's a movement. We're bringing together 
-                    the brightest minds in technology to tackle the world's most pressing challenges using 
-                    artificial intelligence.
+                    HACKFINITY is more than just a hackathon—it's a movement. We're bringing together 
+                    the brightest minds in technology at Bangalore Technological Institute to tackle the world's 
+                    most pressing challenges using artificial intelligence.
                   </p>
                   
                   <p className="text-gray-300 leading-relaxed text-lg">
                     From healthcare accessibility to climate change, from education equity to social justice—
                     your code can be the catalyst for meaningful change. Join us for 18 hours of intense 
-                    innovation, collaboration, and impact.
+                    offline innovation, collaboration, and impact at our campus.
                   </p>
 
                   <div className="pt-4">
@@ -66,10 +66,9 @@ const AboutSection: React.FC = () => {
             {/* Right Content - Stats */}
             <motion.div variants={fadeInUp} className="space-y-6">
               {[
-                { number: "500+", label: "Expected Participants", icon: <FaUsers className="text-3xl text-primary-blue" /> },
                 { number: "₹18K", label: "Total Prize Pool", icon: <RiMoneyDollarCircleFill className="text-3xl text-primary-blue" /> },
-                { number: "24/7", label: "Mentor Support", icon: <FaBullseye className="text-3xl text-primary-blue" /> },
-                { number: "Global", label: "Virtual Event", icon: <FaGlobeAmericas className="text-3xl text-primary-blue" /> }
+                { number: "18hrs", label: "Non-stop Innovation", icon: <FaBullseye className="text-3xl text-primary-blue" /> },
+                { number: "BTI", label: "Bangalore Technological Institute", icon: <FaMapMarkerAlt className="text-3xl text-primary-blue cursor-pointer hover:text-primary-purple transition-colors" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })} /> }
               ].map((stat, index) => (
                 <motion.div
                   key={index}

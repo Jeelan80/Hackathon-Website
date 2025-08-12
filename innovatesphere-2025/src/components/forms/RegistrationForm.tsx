@@ -5,11 +5,21 @@ import { fadeInUp } from '../../utils/animations';
 import { 
   FaUser, 
   FaGraduationCap, 
-  FaCode,
   FaUsers,
   FaCheckCircle,
   FaExclamationTriangle
 } from 'react-icons/fa';
+
+interface TeamMember {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  institution: string;
+  degree: string;
+  graduationYear: string;
+  sameAsLeader: boolean;
+}
 
 interface FormData {
   // Personal Information
@@ -23,19 +33,15 @@ interface FormData {
   degree: string;
   graduationYear: string;
   
-  // Technical
-  programmingLanguages: string[];
-  experience: string;
-  
   // Team
   teamName: string;
   teamSize: string;
-  lookingForTeam: boolean;
+  teamMember2: TeamMember;
+  teamMember3: TeamMember;
   
   // Additional
-  motivation: string;
-  dietaryRestrictions: string;
   agreeToTerms: boolean;
+  paymentCompleted: boolean;
 }
 
 interface RegistrationFormProps {
@@ -57,27 +63,33 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
     institution: '',
     degree: '',
     graduationYear: '',
-    programmingLanguages: [],
-    experience: '',
     teamName: '',
     teamSize: '1',
-    lookingForTeam: false,
-    motivation: '',
-    dietaryRestrictions: '',
-    agreeToTerms: false
+    teamMember2: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      institution: '',
+      degree: '',
+      graduationYear: '',
+      sameAsLeader: false
+    },
+    teamMember3: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      institution: '',
+      degree: '',
+      graduationYear: '',
+      sameAsLeader: false
+    },
+    agreeToTerms: false,
+    paymentCompleted: false
   });
 
-  const programmingOptions = [
-    'JavaScript', 'Python', 'Java', 'C++', 'React', 'Node.js', 
-    'Machine Learning', 'AI/ML', 'Data Science', 'Mobile Development'
-  ];
 
-  const experienceOptions = [
-    'Beginner (0-1 years)',
-    'Intermediate (1-3 years)', 
-    'Advanced (3-5 years)',
-    'Expert (5+ years)'
-  ];
 
   const validateStep = (step: number): boolean => {
     const newErrors: Partial<FormData> = {};
@@ -98,21 +110,38 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
         break;
       
       case 3:
-        if (formData.programmingLanguages.length === 0) {
-          newErrors.programmingLanguages = ['At least one skill is required'] as any;
+        if (!formData.teamName.trim()) {
+          newErrors.teamName = 'Team name is required';
         }
-        if (!formData.experience) newErrors.experience = 'Experience level is required';
+        
+        // Validate team member 2 if team size is 2 or 3
+        if (parseInt(formData.teamSize) >= 2) {
+          const member2 = formData.teamMember2;
+          if (!member2.firstName.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, firstName: 'First name is required' };
+          if (!member2.lastName.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, lastName: 'Last name is required' };
+          if (!member2.email.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, email: 'Email is required' };
+          if (!member2.phone.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, phone: 'Phone is required' };
+          if (!member2.sameAsLeader && !member2.institution.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, institution: 'Institution is required' };
+          if (!member2.sameAsLeader && !member2.degree.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, degree: 'Degree is required' };
+          if (!member2.sameAsLeader && !member2.graduationYear.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, graduationYear: 'Graduation year is required' };
+        }
+        
+        // Validate team member 3 if team size is 3
+        if (parseInt(formData.teamSize) === 3) {
+          const member3 = formData.teamMember3;
+          if (!member3.firstName.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, firstName: 'First name is required' };
+          if (!member3.lastName.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, lastName: 'Last name is required' };
+          if (!member3.email.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, email: 'Email is required' };
+          if (!member3.phone.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, phone: 'Phone is required' };
+          if (!member3.sameAsLeader && !member3.institution.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, institution: 'Institution is required' };
+          if (!member3.sameAsLeader && !member3.degree.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, degree: 'Degree is required' };
+          if (!member3.sameAsLeader && !member3.graduationYear.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, graduationYear: 'Graduation year is required' };
+        }
         break;
       
       case 4:
-        if (!formData.lookingForTeam && !formData.teamName.trim()) {
-          newErrors.teamName = 'Team name is required if you have a team';
-        }
-        break;
-      
-      case 5:
-        if (!formData.motivation.trim()) newErrors.motivation = 'Motivation is required';
         if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to terms' as any;
+        if (!formData.paymentCompleted) newErrors.paymentCompleted = 'Payment must be completed' as any;
         break;
     }
 
@@ -122,7 +151,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
 
   const handleNext = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => Math.min(prev + 1, 5));
+      setCurrentStep(prev => Math.min(prev + 1, 4));
     }
   };
 
@@ -131,7 +160,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
   };
 
   const handleSubmit = async () => {
-    if (!validateStep(5)) return;
+    if (!validateStep(4)) return;
 
     setIsSubmitting(true);
     
@@ -161,13 +190,43 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
     }
   };
 
-  const toggleProgrammingLanguage = (language: string) => {
-    const current = formData.programmingLanguages;
-    const updated = current.includes(language)
-      ? current.filter(l => l !== language)
-      : [...current, language];
-    updateFormData('programmingLanguages', updated);
+  const updateTeamMember = (memberKey: 'teamMember2' | 'teamMember3', field: keyof TeamMember, value: any) => {
+    setFormData(prev => ({
+      ...prev,
+      [memberKey]: {
+        ...prev[memberKey],
+        [field]: value
+      }
+    }));
   };
+
+  const handleSameAsLeader = (memberKey: 'teamMember2' | 'teamMember3', checked: boolean) => {
+    if (checked) {
+      setFormData(prev => ({
+        ...prev,
+        [memberKey]: {
+          ...prev[memberKey],
+          institution: prev.institution,
+          degree: prev.degree,
+          graduationYear: prev.graduationYear,
+          sameAsLeader: true
+        }
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [memberKey]: {
+          ...prev[memberKey],
+          institution: '',
+          degree: '',
+          graduationYear: '',
+          sameAsLeader: false
+        }
+      }));
+    }
+  };
+
+
 
   const renderStep = () => {
     switch (currentStep) {
@@ -176,7 +235,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
           <motion.div variants={fadeInUp} className="space-y-4">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <FaUser className="text-primary-blue" />
-              Personal Information
+              Team Leader Info
             </h3>
             
             <div className="grid md:grid-cols-2 gap-4">
@@ -232,7 +291,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
                 className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
                   errors.phone ? 'ring-2 ring-red-500' : ''
                 }`}
-                placeholder="+1 (555) 123-4567"
+                placeholder="+91 XXXXXXXXXX"
               />
               {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
             </div>
@@ -299,136 +358,324 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
 
       case 3:
         return (
-          <motion.div variants={fadeInUp} className="space-y-4">
-            <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-              <FaCode className="text-primary-blue" />
-              Technical Skills
-            </h3>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Programming Languages & Skills *</label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {programmingOptions.map(language => (
-                  <motion.button
-                    key={language}
-                    type="button"
-                    onClick={() => toggleProgrammingLanguage(language)}
-                    className={`p-2 rounded-lg text-sm transition-all duration-200 ${
-                      formData.programmingLanguages.includes(language)
-                        ? 'bg-primary-blue text-white'
-                        : 'glass-card text-gray-300 hover:bg-white/10'
-                    }`}
-                    whileHover={{ opacity: 0.8 }}
-                    whileTap={{ opacity: 0.6 }}
-                  >
-                    {language}
-                  </motion.button>
-                ))}
-              </div>
-              {errors.programmingLanguages && <p className="text-red-400 text-sm mt-1">At least one skill is required</p>}
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Experience Level *</label>
-              <select
-                value={formData.experience}
-                onChange={(e) => updateFormData('experience', e.target.value)}
-                className={`w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue ${
-                  errors.experience ? 'ring-2 ring-red-500' : ''
-                }`}
-              >
-                <option value="">Select your experience level</option>
-                {experienceOptions.map(option => (
-                  <option key={option} value={option} className="bg-gray-800">{option}</option>
-                ))}
-              </select>
-              {errors.experience && <p className="text-red-400 text-sm mt-1">{errors.experience}</p>}
-            </div>
-          </motion.div>
-        );
-
-      case 4:
-        return (
-          <motion.div variants={fadeInUp} className="space-y-4">
+          <motion.div variants={fadeInUp} className="space-y-6">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <FaUsers className="text-primary-blue" />
               Team Information
             </h3>
             
-            <div className="glass-card p-4">
-              <label className="flex items-center space-x-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.lookingForTeam}
-                  onChange={(e) => updateFormData('lookingForTeam', e.target.checked)}
-                  className="w-4 h-4 text-primary-blue bg-transparent border-gray-300 rounded focus:ring-primary-blue"
-                />
-                <span className="text-white">I'm looking for teammates</span>
-              </label>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Team Name *</label>
+              <input
+                type="text"
+                value={formData.teamName}
+                onChange={(e) => updateFormData('teamName', e.target.value)}
+                className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
+                  errors.teamName ? 'ring-2 ring-red-500' : ''
+                }`}
+                placeholder="Enter your team name"
+              />
+              {errors.teamName && <p className="text-red-400 text-sm mt-1">{errors.teamName}</p>}
             </div>
             
-            {!formData.lookingForTeam && (
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Team Name</label>
-                <input
-                  type="text"
-                  value={formData.teamName}
-                  onChange={(e) => updateFormData('teamName', e.target.value)}
-                  className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
-                    errors.teamName ? 'ring-2 ring-red-500' : ''
-                  }`}
-                  placeholder="Enter your team name"
-                />
-                {errors.teamName && <p className="text-red-400 text-sm mt-1">{errors.teamName}</p>}
-              </div>
-            )}
-            
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Preferred Team Size</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Team Size *</label>
               <select
                 value={formData.teamSize}
                 onChange={(e) => updateFormData('teamSize', e.target.value)}
                 className="w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue"
               >
-                <option value="1" className="bg-gray-800">Solo (1 person)</option>
-                <option value="2" className="bg-gray-800">2 people</option>
-                <option value="3" className="bg-gray-800">3 people</option>
-                <option value="4" className="bg-gray-800">4 people</option>
+                <option value="1" className="bg-gray-800">1 member (Solo)</option>
+                <option value="2" className="bg-gray-800">2 members</option>
+                <option value="3" className="bg-gray-800">3 members</option>
               </select>
             </div>
+
+            {/* Team Member 2 Details */}
+            {parseInt(formData.teamSize) >= 2 && (
+              <div className="glass-card p-6">
+                <h4 className="text-lg font-semibold text-white mb-4">Team Member 2 Details</h4>
+                
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">First Name *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember2.firstName}
+                      onChange={(e) => updateTeamMember('teamMember2', 'firstName', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="Enter first name"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Last Name *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember2.lastName}
+                      onChange={(e) => updateTeamMember('teamMember2', 'lastName', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="Enter last name"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
+                    <input
+                      type="email"
+                      value={formData.teamMember2.email}
+                      onChange={(e) => updateTeamMember('teamMember2', 'email', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="email@example.com"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number *</label>
+                    <input
+                      type="tel"
+                      value={formData.teamMember2.phone}
+                      onChange={(e) => updateTeamMember('teamMember2', 'phone', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="+91 XXXXXXXXXX"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.teamMember2.sameAsLeader}
+                      onChange={(e) => handleSameAsLeader('teamMember2', e.target.checked)}
+                      className="w-4 h-4 text-primary-blue bg-transparent border-gray-300 rounded focus:ring-primary-blue"
+                    />
+                    <span className="text-white">Same as Team Leader (College & Degree)</span>
+                  </label>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Institution/College *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember2.institution}
+                      onChange={(e) => updateTeamMember('teamMember2', 'institution', e.target.value)}
+                      disabled={formData.teamMember2.sameAsLeader}
+                      className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
+                        formData.teamMember2.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      placeholder="Institution or College name"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Degree/Field of Study *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember2.degree}
+                      onChange={(e) => updateTeamMember('teamMember2', 'degree', e.target.value)}
+                      disabled={formData.teamMember2.sameAsLeader}
+                      className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
+                        formData.teamMember2.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      placeholder="e.g., Computer Science"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Graduation Year *</label>
+                  <select
+                    value={formData.teamMember2.graduationYear}
+                    onChange={(e) => updateTeamMember('teamMember2', 'graduationYear', e.target.value)}
+                    disabled={formData.teamMember2.sameAsLeader}
+                    className={`w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue ${
+                      formData.teamMember2.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    <option value="">Select graduation year</option>
+                    {Array.from({ length: 10 }, (_, i) => 2025 + i).map(year => (
+                      <option key={year} value={year} className="bg-gray-800">{year}</option>
+                    ))}
+                    {Array.from({ length: 5 }, (_, i) => 2024 - i).map(year => (
+                      <option key={year} value={year} className="bg-gray-800">{year}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
+
+            {/* Team Member 3 Details */}
+            {parseInt(formData.teamSize) >= 3 && (
+              <div className="glass-card p-6">
+                <h4 className="text-lg font-semibold text-white mb-4">Team Member 3 Details</h4>
+                
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">First Name *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember3.firstName}
+                      onChange={(e) => updateTeamMember('teamMember3', 'firstName', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="Enter first name"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Last Name *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember3.lastName}
+                      onChange={(e) => updateTeamMember('teamMember3', 'lastName', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="Enter last name"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
+                    <input
+                      type="email"
+                      value={formData.teamMember3.email}
+                      onChange={(e) => updateTeamMember('teamMember3', 'email', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="email@example.com"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number *</label>
+                    <input
+                      type="tel"
+                      value={formData.teamMember3.phone}
+                      onChange={(e) => updateTeamMember('teamMember3', 'phone', e.target.value)}
+                      className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
+                      placeholder="+91 XXXXXXXXXX"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.teamMember3.sameAsLeader}
+                      onChange={(e) => handleSameAsLeader('teamMember3', e.target.checked)}
+                      className="w-4 h-4 text-primary-blue bg-transparent border-gray-300 rounded focus:ring-primary-blue"
+                    />
+                    <span className="text-white">Same as Team Leader (College & Degree)</span>
+                  </label>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Institution/College *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember3.institution}
+                      onChange={(e) => updateTeamMember('teamMember3', 'institution', e.target.value)}
+                      disabled={formData.teamMember3.sameAsLeader}
+                      className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
+                        formData.teamMember3.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      placeholder="Institution or College name"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Degree/Field of Study *</label>
+                    <input
+                      type="text"
+                      value={formData.teamMember3.degree}
+                      onChange={(e) => updateTeamMember('teamMember3', 'degree', e.target.value)}
+                      disabled={formData.teamMember3.sameAsLeader}
+                      className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue ${
+                        formData.teamMember3.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      placeholder="e.g., Computer Science"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Graduation Year *</label>
+                  <select
+                    value={formData.teamMember3.graduationYear}
+                    onChange={(e) => updateTeamMember('teamMember3', 'graduationYear', e.target.value)}
+                    disabled={formData.teamMember3.sameAsLeader}
+                    className={`w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue ${
+                      formData.teamMember3.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    <option value="">Select graduation year</option>
+                    {Array.from({ length: 10 }, (_, i) => 2025 + i).map(year => (
+                      <option key={year} value={year} className="bg-gray-800">{year}</option>
+                    ))}
+                    {Array.from({ length: 5 }, (_, i) => 2024 - i).map(year => (
+                      <option key={year} value={year} className="bg-gray-800">{year}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
           </motion.div>
         );
 
-      case 5:
+      case 4:
         return (
-          <motion.div variants={fadeInUp} className="space-y-4">
-            <h3 className="text-xl font-bold text-white mb-4">Final Details</h3>
+          <motion.div variants={fadeInUp} className="space-y-6">
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <FaCheckCircle className="text-primary-blue" />
+              Payment & Confirmation
+            </h3>
             
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Why do you want to participate? *</label>
-              <textarea
-                value={formData.motivation}
-                onChange={(e) => updateFormData('motivation', e.target.value)}
-                rows={4}
-                className={`w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue resize-none ${
-                  errors.motivation ? 'ring-2 ring-red-500' : ''
-                }`}
-                placeholder="Tell us about your motivation to participate in this hackathon..."
-              />
-              {errors.motivation && <p className="text-red-400 text-sm mt-1">{errors.motivation}</p>}
+            {/* Registration Summary */}
+            <div className="glass-card p-6">
+              <h4 className="text-lg font-semibold text-white mb-4">Registration Summary</h4>
+              <div className="space-y-2 text-gray-300">
+                <div className="flex justify-between">
+                  <span>Team Leader:</span>
+                  <span className="text-white">{formData.firstName} {formData.lastName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Team Name:</span>
+                  <span className="text-white">{formData.teamName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Team Size:</span>
+                  <span className="text-white">{formData.teamSize} member{parseInt(formData.teamSize) > 1 ? 's' : ''}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Institution:</span>
+                  <span className="text-white">{formData.institution}</span>
+                </div>
+              </div>
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Dietary Restrictions (Optional)</label>
-              <input
-                type="text"
-                value={formData.dietaryRestrictions}
-                onChange={(e) => updateFormData('dietaryRestrictions', e.target.value)}
-                className="w-full glass-card p-3 text-white placeholder-gray-400 border-0 focus:ring-2 focus:ring-primary-blue"
-                placeholder="Any dietary restrictions or allergies?"
-              />
+
+            {/* Payment Details */}
+            <div className="glass-card p-6">
+              <h4 className="text-lg font-semibold text-white mb-4">Payment Details</h4>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center text-lg">
+                  <span className="text-gray-300">Registration Fee:</span>
+                  <span className="text-white font-bold">₹1,499/-</span>
+                </div>
+                <div className="border-t border-gray-600 pt-4">
+                  <div className="flex justify-between items-center text-xl font-bold">
+                    <span className="text-white">Total Amount:</span>
+                    <span className="text-primary-blue">₹1,499/-</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            
+
+            {/* Terms Agreement */}
             <div className="glass-card p-4">
               <label className="flex items-start space-x-3 cursor-pointer">
                 <input
@@ -443,6 +690,60 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
               </label>
               {errors.agreeToTerms && <p className="text-red-400 text-sm mt-1">You must agree to the terms</p>}
             </div>
+
+            {/* Payment Button */}
+            <div className="text-center">
+              <div className="mb-4">
+                <p className="text-gray-300 text-sm mb-2">
+                  Click below to proceed with secure payment via Razorpay
+                </p>
+                <p className="text-gray-400 text-xs">
+                  You will be redirected to Razorpay's secure payment gateway
+                </p>
+              </div>
+              
+              <a
+                href="https://rzp.io/rzp/VffCf0iE"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  if (formData.agreeToTerms) {
+                    updateFormData('paymentCompleted', true);
+                  }
+                }}
+                className={`inline-flex items-center gap-3 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${
+                  formData.agreeToTerms
+                    ? 'bg-gradient-to-r from-primary-purple to-primary-blue text-white hover:shadow-lg hover:shadow-primary-blue/25 transform hover:scale-105'
+                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                }`}
+                style={{ pointerEvents: formData.agreeToTerms ? 'auto' : 'none' }}
+              >
+                <FaCheckCircle className="text-xl" />
+                Pay ₹1,499 & Complete Registration
+              </a>
+              
+              {!formData.agreeToTerms && (
+                <p className="text-red-400 text-sm mt-2">Please agree to terms before proceeding with payment</p>
+              )}
+              
+              {errors.paymentCompleted && (
+                <p className="text-red-400 text-sm mt-2">Please complete the payment to finish registration</p>
+              )}
+            </div>
+
+            {/* Payment Status */}
+            {formData.paymentCompleted && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="glass-card p-4 border border-green-500"
+              >
+                <div className="flex items-center gap-3 text-green-400">
+                  <FaCheckCircle className="text-xl" />
+                  <span className="font-semibold">Your payment will be verified and you will be added to HACKFINITY.</span>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
         );
 
@@ -466,7 +767,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
           <FaCheckCircle className="text-6xl text-green-400 mx-auto mb-4" />
         </motion.div>
         <h3 className="text-2xl font-bold text-white mb-2">Registration Successful!</h3>
-        <p className="text-gray-300">Welcome to InnovateSphere 2025! Check your email for confirmation details.</p>
+        <p className="text-gray-300">Welcome to HACKFINITY! Check your email for confirmation details.</p>
       </motion.div>
     );
   }
@@ -497,14 +798,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
       {/* Progress Bar */}
       <div className="mb-6">
         <div className="flex justify-between text-sm text-gray-400 mb-2">
-          <span>Step {currentStep} of 5</span>
-          <span>{Math.round((currentStep / 5) * 100)}% Complete</span>
+          <span>Step {currentStep} of 4</span>
+          <span>{Math.round((currentStep / 4) * 100)}% Complete</span>
         </div>
         <div className="w-full bg-gray-700 rounded-full h-2">
           <motion.div
             className="bg-gradient-to-r from-primary-purple to-primary-blue h-2 rounded-full"
             initial={{ width: 0 }}
-            animate={{ width: `${(currentStep / 5) * 100}%` }}
+            animate={{ width: `${(currentStep / 4) * 100}%` }}
             transition={{ duration: 0.3 }}
           />
         </div>
@@ -537,7 +838,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
         <AnimatedButton
           variant="primary"
           size="md"
-          onClick={currentStep === 5 ? handleSubmit : handleNext}
+          onClick={currentStep === 4 ? handleSubmit : handleNext}
           disabled={isSubmitting}
           className="min-w-[120px]"
         >
@@ -546,7 +847,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               Submitting...
             </div>
-          ) : currentStep === 5 ? (
+          ) : currentStep === 4 ? (
             'Submit Registration'
           ) : (
             'Next'

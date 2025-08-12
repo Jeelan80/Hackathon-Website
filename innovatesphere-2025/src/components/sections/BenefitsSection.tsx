@@ -7,7 +7,6 @@ import {
   FaTrophy, 
   FaUsers, 
   FaGraduationCap, 
-  FaBriefcase, 
   FaHeart,
   FaRocket 
 } from 'react-icons/fa';
@@ -34,11 +33,7 @@ const BenefitsSection: React.FC = () => {
       title: "Learn & Grow",
       description: "Access workshops, mentorship sessions, and resources from industry leaders. Expand your skills in AI, machine learning, and social impact."
     },
-    {
-      icon: <FaBriefcase className="w-8 h-8 text-primary-blue" />,
-      title: "Get Hired",
-      description: "Showcase your skills to top tech companies. Many participants have landed internships and full-time positions through hackathon connections."
-    },
+
     {
       icon: <FaHeart className="w-8 h-8 text-primary-blue" />,
       title: "Make an Impact",
@@ -61,7 +56,7 @@ const BenefitsSection: React.FC = () => {
               <span className="gradient-text">Why Participate?</span>
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Join InnovateSphere 2025 and unlock opportunities that go far beyond coding
+              Join HACKFINITY and unlock opportunities that go far beyond coding
             </p>
           </motion.div>
 

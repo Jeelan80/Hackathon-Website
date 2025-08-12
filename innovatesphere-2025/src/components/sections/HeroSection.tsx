@@ -83,7 +83,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => {
       className="relative hero-gradient min-h-screen flex items-center justify-center p-8 pt-24 md:pt-32 overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      aria-label="Hero section - InnovateSphere 2025 hackathon introduction"
+      aria-label="Hero section - HACKFINITY hackathon introduction"
       role="banner"
     >
       {/* Interactive Background Particles */}

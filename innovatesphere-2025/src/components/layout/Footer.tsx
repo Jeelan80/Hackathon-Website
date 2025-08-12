@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                InnovateSphere 2025
+                HACKFINITY
               </motion.h3>
               <motion.p 
                 className="text-white/70 text-sm leading-relaxed"
@@ -162,7 +162,7 @@ const Footer: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               viewport={{ once: true }}
             >
-              © 2025 InnovateSphere. All rights reserved.
+              © 2025 HACKFINITY. All rights reserved.
             </motion.p>
           </div>
         </GlassmorphismCard>

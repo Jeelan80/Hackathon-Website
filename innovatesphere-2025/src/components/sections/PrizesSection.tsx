@@ -5,10 +5,8 @@ import { fadeInUp, staggerContainer } from '../../utils/animations';
 import { 
   FaTrophy, 
   FaMedal, 
-  FaAward,
   FaStar,
-  FaCrown,
-  FaGem
+  FaCrown
 } from 'react-icons/fa';
 
 const PrizesSection: React.FC = () => {
@@ -66,26 +64,7 @@ const PrizesSection: React.FC = () => {
     }
   ];
 
-  const specialPrizes = [
-    {
-      title: "Best Innovation",
-      description: "Most creative use of AI technology",
-      icon: <FaGem className="w-5 h-5" />,
-      reward: "Special Recognition"
-    },
-    {
-      title: "Best Social Impact",
-      description: "Solution with highest potential for social good",
-      icon: <FaStar className="w-5 h-5" />,
-      reward: "Impact Award"
-    },
-    {
-      title: "Best Technical Implementation",
-      description: "Most technically sound and well-executed solution",
-      icon: <FaAward className="w-5 h-5" />,
-      reward: "Technical Excellence"
-    }
-  ];
+
 
   return (
     <section id="prizes" className="section-padding px-8 bg-gradient-to-b from-black via-purple-900/20 to-black">
@@ -216,39 +195,7 @@ const PrizesSection: React.FC = () => {
             ))}
           </div>
 
-          {/* Special Recognition Prizes */}
-          <motion.div variants={fadeInUp} className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-8 text-white">
-              Special Recognition Awards
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {specialPrizes.map((award, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <GlassmorphismCard className="p-6 text-center border border-primary-blue/30 hover:border-primary-blue/60 transition-colors">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full 
-                      bg-gradient-to-r from-primary-purple to-primary-blue text-white mb-4">
-                      {award.icon}
-                    </div>
-                    <h4 className="text-lg font-semibold text-white mb-2">
-                      {award.title}
-                    </h4>
-                    <p className="text-gray-400 text-sm mb-3">
-                      {award.description}
-                    </p>
-                    <span className="inline-block px-3 py-1 rounded-full bg-primary-blue/20 
-                      text-primary-blue text-xs font-medium">
-                      {award.reward}
-                    </span>
-                  </GlassmorphismCard>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+
 
           {/* Call to Action */}
           <motion.div 

@@ -62,9 +62,9 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
               className="text-xl font-bold gradient-text cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded"
               whileHover={{ scale: 1.05 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              aria-label="InnovateSphere 2025 - Go to top of page"
+              aria-label="HACKFINITY - Go to top of page"
             >
-              InnovateSphere 2025
+              HACKFINITY
             </motion.button>
 
             {/* Desktop Navigation */}

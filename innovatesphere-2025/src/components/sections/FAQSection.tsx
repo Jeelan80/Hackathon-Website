@@ -26,8 +26,8 @@ const FAQSection: React.FC = () => {
   const faqItems: FAQItem[] = [
     {
       id: '1',
-      question: 'What is InnovateSphere 2025?',
-      answer: 'InnovateSphere 2025 is a 18-hour virtual hackathon focused on building AI solutions for social good. Participants will work in teams to create innovative applications that address real-world social challenges using artificial intelligence.',
+      question: 'What is HACKFINITY?',
+      answer: 'HACKFINITY is a 18-hour virtual hackathon focused on building AI solutions for social good. Participants will work in teams to create innovative applications that address real-world social challenges using artificial intelligence.',
       category: 'general',
       icon: <FaQuestionCircle className="w-4 h-4" />
     },
@@ -55,7 +55,7 @@ const FAQSection: React.FC = () => {
     {
       id: '5',
       question: 'Is there any cost to participate?',
-      answer: 'No! InnovateSphere 2025 is completely free to participate. We believe in making innovation accessible to everyone. All you need is your creativity, coding skills, and passion for social good.',
+      answer: 'No! HACKFINITY is completely free to participate. We believe in making innovation accessible to everyone. All you need is your creativity, coding skills, and passion for social good.',
       category: 'general',
       icon: <FaQuestionCircle className="w-4 h-4" />
     },
