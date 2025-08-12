@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedButton } from '../ui';
 import { fadeInUp } from '../../utils/animations';
+import { GoogleSheetsService } from '../../utils/googleSheets';
 import { 
   FaUser, 
   FaGraduationCap, 
   FaUsers,
   FaCheckCircle,
-  FaExclamationTriangle
+  FaExclamationTriangle,
+  FaTimes,
+  FaCloudUploadAlt
 } from 'react-icons/fa';
 
 interface TeamMember {
@@ -19,6 +22,16 @@ interface TeamMember {
   degree: string;
   graduationYear: string;
   sameAsLeader: boolean;
+}
+
+interface TeamMemberErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  institution?: string;
+  degree?: string;
+  graduationYear?: string;
 }
 
 interface FormData {
@@ -42,6 +55,24 @@ interface FormData {
   // Additional
   agreeToTerms: boolean;
   paymentCompleted: boolean;
+  paymentScreenshot: string;
+  paymentScreenshotBase64: string; // Base64 encoded image for sending to Google Sheets
+}
+
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  institution?: string;
+  degree?: string;
+  graduationYear?: string;
+  teamName?: string;
+  teamMember2?: TeamMemberErrors;
+  teamMember3?: TeamMemberErrors;
+  agreeToTerms?: string;
+  paymentCompleted?: string;
+  paymentScreenshot?: string;
 }
 
 interface RegistrationFormProps {
@@ -53,7 +84,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
@@ -86,7 +117,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
       sameAsLeader: false
     },
     agreeToTerms: false,
-    paymentCompleted: false
+    paymentCompleted: false,
+    paymentScreenshot: '',
+    paymentScreenshotBase64: ''
   });
 
 
@@ -117,41 +150,55 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
         // Validate team member 2 if team size is 2 or 3
         if (parseInt(formData.teamSize) >= 2) {
           const member2 = formData.teamMember2;
-          if (!member2.firstName.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, firstName: 'First name is required' };
-          if (!member2.lastName.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, lastName: 'Last name is required' };
-          if (!member2.email.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, email: 'Email is required' };
-          if (!member2.phone.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, phone: 'Phone is required' };
-          if (!member2.sameAsLeader && !member2.institution.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, institution: 'Institution is required' };
-          if (!member2.sameAsLeader && !member2.degree.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, degree: 'Degree is required' };
-          if (!member2.sameAsLeader && !member2.graduationYear.trim()) newErrors.teamMember2 = { ...newErrors.teamMember2 as any, graduationYear: 'Graduation year is required' };
+          const member2Errors: TeamMemberErrors = {};
+          if (!member2.firstName.trim()) member2Errors.firstName = 'First name is required';
+          if (!member2.lastName.trim()) member2Errors.lastName = 'Last name is required';
+          if (!member2.email.trim()) member2Errors.email = 'Email is required';
+          if (!member2.phone.trim()) member2Errors.phone = 'Phone is required';
+          if (!member2.sameAsLeader && !member2.institution.trim()) member2Errors.institution = 'Institution is required';
+          if (!member2.sameAsLeader && !member2.degree.trim()) member2Errors.degree = 'Degree is required';
+          if (!member2.sameAsLeader && !member2.graduationYear.trim()) member2Errors.graduationYear = 'Graduation year is required';
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          if (Object.keys(member2Errors).length > 0) newErrors.teamMember2 = member2Errors as any;
         }
         
         // Validate team member 3 if team size is 3
         if (parseInt(formData.teamSize) === 3) {
           const member3 = formData.teamMember3;
-          if (!member3.firstName.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, firstName: 'First name is required' };
-          if (!member3.lastName.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, lastName: 'Last name is required' };
-          if (!member3.email.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, email: 'Email is required' };
-          if (!member3.phone.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, phone: 'Phone is required' };
-          if (!member3.sameAsLeader && !member3.institution.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, institution: 'Institution is required' };
-          if (!member3.sameAsLeader && !member3.degree.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, degree: 'Degree is required' };
-          if (!member3.sameAsLeader && !member3.graduationYear.trim()) newErrors.teamMember3 = { ...newErrors.teamMember3 as any, graduationYear: 'Graduation year is required' };
+          const member3Errors: TeamMemberErrors = {};
+          if (!member3.firstName.trim()) member3Errors.firstName = 'First name is required';
+          if (!member3.lastName.trim()) member3Errors.lastName = 'Last name is required';
+          if (!member3.email.trim()) member3Errors.email = 'Email is required';
+          if (!member3.phone.trim()) member3Errors.phone = 'Phone is required';
+          if (!member3.sameAsLeader && !member3.institution.trim()) member3Errors.institution = 'Institution is required';
+          if (!member3.sameAsLeader && !member3.degree.trim()) member3Errors.degree = 'Degree is required';
+          if (!member3.sameAsLeader && !member3.graduationYear.trim()) member3Errors.graduationYear = 'Graduation year is required';
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          if (Object.keys(member3Errors).length > 0) newErrors.teamMember3 = member3Errors as any;
         }
         break;
       
       case 4:
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (!formData.agreeToTerms) newErrors.agreeToTerms = 'You must agree to terms' as any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (!formData.paymentCompleted) newErrors.paymentCompleted = 'Payment must be completed' as any;
+        break;
+        
+      case 5:
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (!formData.paymentScreenshot) newErrors.paymentScreenshot = 'Payment screenshot is required' as any;
         break;
     }
 
-    setErrors(newErrors);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setErrors(newErrors as any);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => Math.min(prev + 1, 4));
+      setCurrentStep(prev => Math.min(prev + 1, 5));
     }
   };
 
@@ -159,17 +206,58 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
     setCurrentStep(prev => Math.max(prev - 1, 1));
   };
 
+  /* Using inline event handlers instead of this function
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    // Check if file is an image
+    if (!file.type.match('image.*')) {
+      setErrors({ ...errors, paymentScreenshot: 'Please upload an image file (png, jpg, jpeg)' });
+      return;
+    }
+    
+    // Check file size (limit to 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setErrors({ ...errors, paymentScreenshot: 'File size should be less than 5MB' });
+      return;
+    }
+    
+    // Store the file
+    setFormData({
+      ...formData,
+      paymentScreenshot: file
+    });
+    
+    // Convert to Base64 for sending to Google Sheets
+    const reader = new FileReader();
+  */
+
   const handleSubmit = async () => {
-    if (!validateStep(4)) return;
+    if (!validateStep(5)) return;
 
     setIsSubmitting(true);
+    console.log('Starting form submission process...');
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Create a new GoogleSheetsService instance to log URL
+      new GoogleSheetsService();
       
-      // In a real app, you would submit to your backend or external service
-      console.log('Form submitted:', formData);
+      // Always submit using Google Sheets integration (since we have the URL in .env.local)
+      console.log('Submitting registration to Google Sheets...');
+      console.log('Form data being submitted:', formData);
+      
+      // Submit to Google Sheets using the service
+      const result = await GoogleSheetsService.submitRegistration(formData);
+      
+      console.log('Google Sheets submission result:', result);
+      
+      if (!result.success) {
+        console.error('Google Sheets submission failed:', result.message);
+        throw new Error(result.message || 'Failed to submit to Google Sheets');
+      }
+      
+      console.log('Registration submitted successfully:', result.message);
       
       setSubmitStatus('success');
       setTimeout(() => {
@@ -177,20 +265,21 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
         onClose();
       }, 2000);
     } catch (error) {
+      console.error('Registration submission failed:', error);
       setSubmitStatus('error');
       setIsSubmitting(false);
     }
   };
 
-  const updateFormData = (field: keyof FormData, value: any) => {
+  const updateFormData = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
-    if (errors[field]) {
+    if (errors[field as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
   };
 
-  const updateTeamMember = (memberKey: 'teamMember2' | 'teamMember3', field: keyof TeamMember, value: any) => {
+  const updateTeamMember = (memberKey: 'teamMember2' | 'teamMember3', field: keyof TeamMember, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [memberKey]: {
@@ -339,6 +428,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
               <select
                 value={formData.graduationYear}
                 onChange={(e) => updateFormData('graduationYear', e.target.value)}
+                title="Select graduation year"
+                aria-label="Select graduation year"
                 className={`w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue ${
                   errors.graduationYear ? 'ring-2 ring-red-500' : ''
                 }`}
@@ -383,6 +474,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
               <select
                 value={formData.teamSize}
                 onChange={(e) => updateFormData('teamSize', e.target.value)}
+                title="Select team size"
+                aria-label="Select team size"
                 className="w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue"
               >
                 <option value="1" className="bg-gray-800">1 member (Solo)</option>
@@ -492,6 +585,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
                     value={formData.teamMember2.graduationYear}
                     onChange={(e) => updateTeamMember('teamMember2', 'graduationYear', e.target.value)}
                     disabled={formData.teamMember2.sameAsLeader}
+                    title="Select team member 2 graduation year"
+                    aria-label="Select team member 2 graduation year"
                     className={`w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue ${
                       formData.teamMember2.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
@@ -609,6 +704,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
                     value={formData.teamMember3.graduationYear}
                     onChange={(e) => updateTeamMember('teamMember3', 'graduationYear', e.target.value)}
                     disabled={formData.teamMember3.sameAsLeader}
+                    title="Select team member 3 graduation year"
+                    aria-label="Select team member 3 graduation year"
                     className={`w-full glass-card p-3 text-white border-0 focus:ring-2 focus:ring-primary-blue ${
                       formData.teamMember3.sameAsLeader ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
@@ -713,10 +810,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
                 }}
                 className={`inline-flex items-center gap-3 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${
                   formData.agreeToTerms
-                    ? 'bg-gradient-to-r from-primary-purple to-primary-blue text-white hover:shadow-lg hover:shadow-primary-blue/25 transform hover:scale-105'
-                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                    ? 'bg-gradient-to-r from-primary-purple to-primary-blue text-white hover:shadow-lg hover:shadow-primary-blue/25 transform hover:scale-105 pointer-events-auto'
+                    : 'bg-gray-600 text-gray-400 cursor-not-allowed pointer-events-none'
                 }`}
-                style={{ pointerEvents: formData.agreeToTerms ? 'auto' : 'none' }}
               >
                 <FaCheckCircle className="text-xl" />
                 Pay ₹1,499 & Complete Registration
@@ -744,6 +840,122 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
                 </div>
               </motion.div>
             )}
+          </motion.div>
+        );
+        
+      case 5:
+        return (
+          <motion.div variants={fadeInUp} className="space-y-6">
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <FaCheckCircle className="text-primary-blue" />
+              Upload Payment Proof
+            </h3>
+            
+            <div className="glass-card p-6">
+              <h4 className="text-lg font-semibold text-white mb-4">Payment Screenshot</h4>
+              
+              <p className="text-gray-300 mb-4">
+                Please upload a screenshot of your payment confirmation to complete your registration.
+              </p>
+              
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Payment Screenshot *
+                </label>
+                
+                <div 
+                  className={`border-2 border-dashed rounded-lg p-6 text-center ${formData.paymentScreenshot ? 'border-green-500' : 'border-gray-600'}`}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const files = e.dataTransfer.files;
+                    if (files && files.length > 0) {
+                      const file = files[0];
+                      if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          if (event.target?.result) {
+                            updateFormData('paymentScreenshot', file.name);
+                            updateFormData('paymentScreenshotBase64', event.target.result as string);
+                          }
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }
+                  }}
+                >
+                  {formData.paymentScreenshot ? (
+                    <div className="relative">
+                      <img 
+                        src={formData.paymentScreenshotBase64} 
+                        alt="Payment Screenshot" 
+                        className="max-h-64 mx-auto rounded-lg" 
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateFormData('paymentScreenshot', '');
+                          updateFormData('paymentScreenshotBase64', '');
+                        }}
+                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
+                        aria-label="Remove payment screenshot"
+                        title="Remove payment screenshot"
+                      >
+                        <FaTimes />
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                              if (event.target?.result) {
+                                updateFormData('paymentScreenshot', file.name);
+                                updateFormData('paymentScreenshotBase64', event.target.result as string);
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                        className="hidden"
+                        id="payment-screenshot"
+                      />
+                      <label 
+                        htmlFor="payment-screenshot"
+                        className="cursor-pointer flex flex-col items-center justify-center"
+                      >
+                        <div className="mb-2 text-2xl text-gray-400">
+                          <FaCloudUploadAlt className="text-4xl mx-auto" />
+                        </div>
+                        <p className="text-gray-300 font-medium">Click to upload or drag and drop</p>
+                        <p className="text-gray-400 text-sm">PNG, JPG or JPEG (max 5MB)</p>
+                      </label>
+                    </>
+                  )}
+                </div>
+                
+                {errors.paymentScreenshot && (
+                  <p className="text-red-400 text-sm mt-2">{errors.paymentScreenshot}</p>
+                )}
+              </div>
+              
+              {formData.paymentScreenshot && (
+                <div className="text-green-400 flex items-center gap-2 mt-4">
+                  <FaCheckCircle />
+                  <span>Payment screenshot uploaded successfully</span>
+                </div>
+              )}
+            </div>
           </motion.div>
         );
 
@@ -798,14 +1010,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
       {/* Progress Bar */}
       <div className="mb-6">
         <div className="flex justify-between text-sm text-gray-400 mb-2">
-          <span>Step {currentStep} of 4</span>
-          <span>{Math.round((currentStep / 4) * 100)}% Complete</span>
+          <span>Step {currentStep} of 5</span>
+          <span>{Math.round((currentStep / 5) * 100)}% Complete</span>
         </div>
         <div className="w-full bg-gray-700 rounded-full h-2">
           <motion.div
             className="bg-gradient-to-r from-primary-purple to-primary-blue h-2 rounded-full"
             initial={{ width: 0 }}
-            animate={{ width: `${(currentStep / 4) * 100}%` }}
+            animate={{ width: `${(currentStep / 5) * 100}%` }}
             transition={{ duration: 0.3 }}
           />
         </div>
@@ -838,7 +1050,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
         <AnimatedButton
           variant="primary"
           size="md"
-          onClick={currentStep === 4 ? handleSubmit : handleNext}
+          onClick={currentStep === 5 ? handleSubmit : handleNext}
           disabled={isSubmitting}
           className="min-w-[120px]"
         >
@@ -847,7 +1059,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               Submitting...
             </div>
-          ) : currentStep === 4 ? (
+          ) : currentStep === 5 ? (
             'Submit Registration'
           ) : (
             'Next'
