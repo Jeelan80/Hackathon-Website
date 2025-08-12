@@ -685,7 +685,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onSuccess 
                   className="w-4 h-4 text-primary-blue bg-transparent border-gray-300 rounded focus:ring-primary-blue mt-1"
                 />
                 <span className="text-white text-sm">
-                  I agree to the <a href="/terms" className="text-primary-blue hover:underline">Terms of Service</a> and <a href="/privacy-policy" className="text-primary-blue hover:underline">Privacy Policy</a> *
+                  I agree to the <a href="/terms.html" target="_blank" rel="noopener noreferrer" className="text-primary-blue hover:underline">Terms of Service</a> *
                 </span>
               </label>
               {errors.agreeToTerms && <p className="text-red-400 text-sm mt-1">You must agree to the terms</p>}

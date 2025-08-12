@@ -166,7 +166,7 @@ const ScheduleSection: React.FC = () => {
               className="inline-flex items-center gap-3 glass-card px-6 py-3"
             >
               <FaCalendarAlt className="text-primary-blue" />
-              <span className="text-lg font-semibold text-white">August 23-24, 2025</span>
+              <span className="text-lg font-semibold text-white">August 22-23, 2025</span>
             </motion.div>
           </motion.div>
 

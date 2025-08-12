@@ -182,7 +182,7 @@ This project was built using Kiro, an AI-powered development assistant. See [KIR
 
 **InnovateSphere 2025: Code the Future for Social Good**
 
-- **Date**: August 23-24, 2025
+- **Date**: August 22-23, 2025
 - **Duration**: 18 hours of innovation
 - **Format**: Virtual hackathon
 - **Theme**: AI for Social Good
@@ -211,7 +211,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Email**: hello@innovatesphere.com
+- **Email**: director@btibangalore.com
 - **Discord**: [Join our community](https://discord.gg/innovatesphere)
 - **Twitter**: [@innovatesphere](https://twitter.com/innovatesphere)
 

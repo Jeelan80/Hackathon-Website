@@ -27,44 +27,58 @@ const FAQSection: React.FC = () => {
     {
       id: '1',
       question: 'What is HACKFINITY?',
-      answer: 'HACKFINITY is a 18-hour virtual hackathon focused on building AI solutions for social good. Participants will work in teams to create innovative applications that address real-world social challenges using artificial intelligence.',
+      answer: 'HACKFINITY is an 18-hour offline hackathon focused on building AI solutions for social good, taking place on August 22-23, 2025 at Bangalore Technological Institute (BTI). Participants work in teams to create innovative applications that address real-world social challenges using artificial intelligence.',
       category: 'general',
       icon: <FaQuestionCircle className="w-4 h-4" />
     },
     {
       id: '2',
-      question: 'How do I register for the hackathon?',
-      answer: 'Registration is simple! Click the "Register Now" button on our homepage and fill out the registration form. You can register as an individual or with a pre-formed team. Registration is free and open to all skill levels.',
+      question: 'How do I register and what does it cost?',
+      answer: 'Registration is simple! Click the "Register Now" button on our homepage and fill out the registration form. The registration fee is ₹1,499 per participant, which includes meals, venue access, swag, and participation in all activities. Payment is processed securely through Razorpay.',
       category: 'participation',
       icon: <FaHandshake className="w-4 h-4" />
     },
     {
       id: '3',
       question: 'What is the team size limit?',
-      answer: 'Teams can have 2-4 members. You can register individually and we\'ll help you find teammates during the team formation session, or you can register with a pre-formed team. Solo participation is also allowed but we encourage collaboration.',
+      answer: 'Teams can have a maximum of 3 members. You can register as a solo participant or with a pre-formed team. Team member 1 is automatically the team leader. All team members must register and pay the ₹1,499 registration fee individually.',
       category: 'participation',
       icon: <FaUsers className="w-4 h-4" />
     },
     {
       id: '4',
       question: 'What are the submission requirements?',
-      answer: 'Teams must submit their working solution, source code (GitHub repository), a presentation deck (PPT/PDF), and a demo video (max 3 minutes). All submissions must be related to AI for social good and be original work created during the hackathon.',
+      answer: 'Teams must submit their working solution with source code, a presentation explaining their project, and a demo. All submissions must be related to AI for social good and be original work created during the 18-hour hackathon period. Pre-existing libraries and APIs are allowed.',
       category: 'technical',
       icon: <FaCode className="w-4 h-4" />
     },
     {
       id: '5',
-      question: 'Is there any cost to participate?',
-      answer: 'No! HACKFINITY is completely free to participate. We believe in making innovation accessible to everyone. All you need is your creativity, coding skills, and passion for social good.',
+      question: 'What are the prizes and how much can I win?',
+      answer: 'HACKFINITY offers a total prize pool of ₹18,000! Prizes are awarded based on innovation, technical implementation, social impact potential, and presentation quality. Winners will be announced at the closing ceremony and prizes distributed within 30 days.',
+      category: 'prizes',
+      icon: <FaTrophy className="w-4 h-4" />
+    },
+    {
+      id: '6',
+      question: 'What is included in the registration fee?',
+      answer: 'The ₹1,499 registration fee includes: venue access for 18 hours, meals and refreshments, HACKFINITY swag kit, mentorship sessions, networking opportunities, and participation in all hackathon activities. This is a one-time fee per participant.',
       category: 'general',
       icon: <FaQuestionCircle className="w-4 h-4" />
     },
     {
-      id: '6',
-      question: 'What are the judging criteria?',
-      answer: 'Projects will be judged on: Innovation & Creativity (25%), Social Impact Potential (25%), Technical Implementation (25%), and Presentation Quality (25%). Our expert judges will evaluate both the technical excellence and the potential for positive social change.',
-      category: 'prizes',
-      icon: <FaTrophy className="w-4 h-4" />
+      id: '7',
+      question: 'Where and when is HACKFINITY taking place?',
+      answer: 'HACKFINITY takes place on August 22-23, 2025 at Bangalore Technological Institute (BTI) campus in Bangalore. It\'s an 18-hour offline event where participants will work continuously to build their AI solutions for social good.',
+      category: 'general',
+      icon: <FaQuestionCircle className="w-4 h-4" />
+    },
+    {
+      id: '8',
+      question: 'Can I get a refund if I cannot attend?',
+      answer: 'No, all registration fees are non-refundable once payment is collected. Refunds are only provided if the event is cancelled by the organizers. We recommend ensuring your availability before registering as personal circumstances do not qualify for refunds.',
+      category: 'participation',
+      icon: <FaHandshake className="w-4 h-4" />
     }
   ];
 

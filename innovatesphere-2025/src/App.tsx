@@ -11,7 +11,7 @@ import {
   LazyJudgesSection, 
   LazySponsorsSection, 
   LazyFAQSection, 
-  LazyCommunitySection,
+
   LazyRegistrationForm 
 } from './components/sections/LazyComponents';
 
@@ -39,10 +39,7 @@ function App() {
         {/* Benefits Section */}
         <BenefitsSection />
 
-        {/* Community Section - Lazy Loaded */}
-        <LazyWrapper skeletonVariant="card" skeletonCount={3}>
-          <LazyCommunitySection />
-        </LazyWrapper>
+
 
         {/* Schedule Section - Lazy Loaded */}
         <LazyWrapper skeletonVariant="card" skeletonCount={2}>

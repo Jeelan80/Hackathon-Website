@@ -7,5 +7,5 @@ export { default as JudgesSection } from './JudgesSection';
 export { default as CoordinatorsSection } from './CoordinatorsSection';
 export { default as SponsorsSection } from './SponsorsSection';
 export { default as FAQSection } from './FAQSection';
-export { default as CommunitySection } from './CommunitySection';
+
 export { default as LocationSection } from './LocationSection';

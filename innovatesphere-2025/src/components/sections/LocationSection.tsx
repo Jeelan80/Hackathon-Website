@@ -103,7 +103,7 @@ const LocationSection: React.FC = () => {
                       Have questions about the venue or need assistance?
                     </p>
                     <motion.a
-                      href="mailto:hello@innovatesphere.com"
+                      href="mailto:director@btibangalore.com"
                       className="inline-flex items-center gap-2 text-primary-blue hover:text-primary-purple transition-colors font-semibold"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -123,7 +123,7 @@ const LocationSection: React.FC = () => {
               <h3 className="text-2xl font-bold text-white mb-4">Event Details</h3>
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
-                  <div className="text-3xl font-bold gradient-text mb-2">Aug 23-24</div>
+                  <div className="text-3xl font-bold gradient-text mb-2">Aug 22-23</div>
                   <div className="text-gray-300">2025</div>
                 </div>
                 <div>
