@@ -1,12 +1,10 @@
 [build]
-  publish = "dist"
+  base = "innovatesphere-2025"
   command = "npm run build"
-  base = "."
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "18"
-  NPM_VERSION = "9"
-  CI = "true"
 
 [[redirects]]
   from = "/*"
