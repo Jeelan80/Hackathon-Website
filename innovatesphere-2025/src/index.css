@@ -24,10 +24,82 @@
 @layer components {
   .glass-card {
     @apply backdrop-blur-md bg-glass-white border border-glass-border rounded-xl;
+    will-change: transform;
   }
   
   .glass-button {
     @apply backdrop-blur-md bg-glass-white border border-glass-border rounded-lg px-6 py-3 font-medium transition-all duration-300 hover:bg-opacity-20 hover:border-opacity-40;
+    will-change: transform;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .sr-only:focus {
+    @apply static w-auto h-auto p-1 m-0 overflow-visible whitespace-normal;
+    clip: auto;
+  }
+
+  /* High contrast mode */
+  .high-contrast {
+    filter: contrast(150%) brightness(120%);
+  }
+
+  .high-contrast .glass-card {
+    @apply border-2 border-white bg-black/90;
+    backdrop-filter: none;
+  }
+
+  .high-contrast .gradient-text {
+    @apply text-white;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+
+  .high-contrast button {
+    @apply border-2 border-white;
+  }
+
+  .high-contrast .text-gray-300,
+  .high-contrast .text-gray-400 {
+    @apply text-white;
+  }
+
+  /* Font size adjustments */
+  .font-size-normal {
+    font-size: 16px;
+  }
+
+  .font-size-large {
+    font-size: 18px;
+  }
+
+  .font-size-extra-large {
+    font-size: 20px;
+  }
+
+  /* Reduced motion */
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Focus indicators */
+  .focus-visible {
+    @apply outline-none ring-2 ring-primary-blue ring-offset-2 ring-offset-black;
+  }
+
+  /* Keyboard navigation styles */
+  .keyboard-navigation *:focus {
+    @apply outline-none ring-2 ring-primary-blue ring-offset-2 ring-offset-black;
   }
   
   .gradient-text {

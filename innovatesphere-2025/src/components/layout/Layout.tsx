@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import { AccessibilityToolbar, AccessibilityTester } from '../accessibility';
+import { PerformanceDashboard } from '../monitoring';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,13 +12,38 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, onRegisterClick }) => {
   return (
     <div className="min-h-screen bg-black">
+      {/* Accessibility Toolbar */}
+      <AccessibilityToolbar />
+      
+      {/* Accessibility Tester (Development only) */}
+      <AccessibilityTester />
+      
+      {/* Performance Dashboard (Development only) */}
+      <PerformanceDashboard />
+      
+      {/* Skip to main content for screen readers */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 bg-primary-blue text-white px-4 py-2 rounded-lg"
+      >
+        Skip to main content
+      </a>
+      
+      {/* Header with proper navigation landmark */}
       <Header onRegisterClick={onRegisterClick} />
       
-      {/* Main Content with proper spacing for fixed header */}
-      <main className="relative">
+      {/* Main Content with proper semantic structure */}
+      <main 
+        id="main-content" 
+        className="relative"
+        role="main"
+        aria-label="Main content"
+        tabIndex={-1}
+      >
         {children}
       </main>
       
+      {/* Footer with proper content info landmark */}
       <Footer />
     </div>
   );

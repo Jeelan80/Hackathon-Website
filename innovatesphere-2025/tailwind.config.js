@@ -3,6 +3,39 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{vue,html}",
+    "./public/**/*.html"
+  ],
+  safelist: [
+    // Preserve dynamic classes that might be purged
+    'bg-gradient-to-r',
+    'from-purple-600',
+    'to-blue-600',
+    'from-primary-purple',
+    'to-primary-blue',
+    'glassmorphism',
+    'glassmorphism-light',
+    'glassmorphism-dark',
+    'glow-purple',
+    'glow-blue',
+    'glow-purple-strong',
+    'animate-glow',
+    'animate-float',
+    'animate-pulse-glow',
+    'high-contrast',
+    'reduce-motion',
+    'font-size-normal',
+    'font-size-large',
+    'font-size-extra-large',
+    // Dynamic responsive classes
+    'sm:text-lg',
+    'md:text-xl',
+    'lg:text-2xl',
+    'xl:text-3xl',
+    // Animation classes that might be applied dynamically
+    /^animate-/,
+    /^glassmorphism-/,
+    /^glow-/,
   ],
   theme: {
     extend: {

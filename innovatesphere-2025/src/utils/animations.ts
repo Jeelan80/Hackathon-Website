@@ -1,8 +1,8 @@
 // Framer Motion animation variants
 export const fadeInUp = {
-  initial: { opacity: 0, y: 60 },
+  initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" }
+  transition: { duration: 0.4, ease: "easeOut" }
 };
 
 export const fadeInLeft = {
@@ -20,21 +20,20 @@ export const fadeInRight = {
 export const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.05
     }
   }
 };
 
 export const scaleOnHover = {
-  whileHover: { scale: 1.05 },
-  whileTap: { scale: 0.95 },
-  transition: { type: "spring", stiffness: 300, damping: 20 }
+  whileHover: { opacity: 0.9 },
+  whileTap: { opacity: 0.8 },
+  transition: { duration: 0.2, ease: "easeOut" }
 };
 
 export const glowOnHover = {
   whileHover: { 
-    boxShadow: '0 20px 40px rgba(79, 70, 229, 0.3)',
-    scale: 1.02 
+    boxShadow: '0 20px 40px rgba(79, 70, 229, 0.3)'
   },
   transition: { duration: 0.3, ease: 'easeOut' }
 };

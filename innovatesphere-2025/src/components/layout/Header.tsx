@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassmorphismCard, AnimatedButton } from '../ui';
+import { smoothScrollTo } from '../../utils/smoothScroll';
 
 interface HeaderProps {
   onRegisterClick: () => void;
@@ -21,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
 
   const navItems = [
     { label: 'About', href: '#about' },
+    { label: 'Community', href: '#community' },
     { label: 'Schedule', href: '#schedule' },
     { label: 'Prizes', href: '#prizes' },
     { label: 'Judges', href: '#judges' },
@@ -28,10 +30,8 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    const targetId = href.replace('#', '');
+    smoothScrollTo(targetId, 100, 800);
     setIsMobileMenuOpen(false);
   };
 
@@ -43,6 +43,8 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
+      role="banner"
+      aria-label="Site header"
     >
       <div className="container mx-auto px-4">
         <GlassmorphismCard 
@@ -50,25 +52,32 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
             isScrolled ? 'backdrop-blur-lg bg-black/20' : 'backdrop-blur-md bg-white/5'
           }`}
         >
-          <nav className="flex items-center justify-between py-3 px-6">
+          <nav 
+            className="flex items-center justify-between py-3 px-6"
+            role="navigation"
+            aria-label="Main navigation"
+          >
             {/* Logo */}
-            <motion.div
-              className="text-xl font-bold gradient-text cursor-pointer"
+            <motion.button
+              className="text-xl font-bold gradient-text cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded"
               whileHover={{ scale: 1.05 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              aria-label="InnovateSphere 2025 - Go to top of page"
             >
               InnovateSphere 2025
-            </motion.div>
+            </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-8" role="menubar">
               {navItems.map((item) => (
                 <motion.button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-white/80 hover:text-white transition-colors duration-200"
+                  className="text-white/80 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  role="menuitem"
+                  aria-label={`Navigate to ${item.label} section`}
                 >
                   {item.label}
                 </motion.button>

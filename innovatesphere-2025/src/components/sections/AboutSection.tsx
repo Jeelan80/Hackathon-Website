@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GlassmorphismCard } from '../ui';
+// import { FadeInOnScroll } from '../animations'; // TODO: Use this for enhanced animations
 import { fadeInUp, staggerContainer } from '../../utils/animations';
 import { FaRobot, FaUsers, FaGlobeAmericas, FaBullseye } from 'react-icons/fa';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';

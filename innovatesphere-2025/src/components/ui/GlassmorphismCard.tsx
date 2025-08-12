@@ -43,9 +43,10 @@ const GlassmorphismCard: React.FC<GlassmorphismCardProps> = ({
         className={baseClasses}
         style={style}
         whileHover={glow ? { 
-          boxShadow: '0 20px 40px rgba(79, 70, 229, 0.3)',
-          scale: 1.02 
-        } : { scale: 1.02 }}
+          boxShadow: '0 20px 40px rgba(79, 70, 229, 0.3)'
+        } : { 
+          backgroundColor: 'rgba(255, 255, 255, 0.15)'
+        }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
         {children}

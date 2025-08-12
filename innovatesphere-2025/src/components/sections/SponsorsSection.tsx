@@ -17,14 +17,14 @@ const SponsorsSection: React.FC = () => {
     // Platinum Sponsors
     {
       name: 'TechCorp Global',
-      logo: '/api/placeholder/200/100',
+      logo: '',
       website: 'https://techcorp.com',
       tier: 'platinum',
       description: 'Leading AI technology solutions provider'
     },
     {
       name: 'InnovateAI',
-      logo: '/api/placeholder/200/100',
+      logo: '',
       website: 'https://innovateai.com',
       tier: 'platinum',
       description: 'Pioneering artificial intelligence research'
@@ -33,21 +33,21 @@ const SponsorsSection: React.FC = () => {
     // Gold Sponsors
     {
       name: 'DataFlow Systems',
-      logo: '/api/placeholder/180/90',
+      logo: '',
       website: 'https://dataflow.com',
       tier: 'gold',
       description: 'Big data and analytics platform'
     },
     {
       name: 'CloudTech Solutions',
-      logo: '/api/placeholder/180/90',
+      logo: '',
       website: 'https://cloudtech.com',
       tier: 'gold',
       description: 'Cloud infrastructure and services'
     },
     {
       name: 'NextGen Robotics',
-      logo: '/api/placeholder/180/90',
+      logo: '',
       website: 'https://nextgenrobotics.com',
       tier: 'gold',
       description: 'Advanced robotics and automation'
@@ -56,28 +56,28 @@ const SponsorsSection: React.FC = () => {
     // Silver Sponsors
     {
       name: 'StartupHub',
-      logo: '/api/placeholder/160/80',
+      logo: '',
       website: 'https://startuphub.com',
       tier: 'silver',
       description: 'Startup incubator and accelerator'
     },
     {
       name: 'DevTools Pro',
-      logo: '/api/placeholder/160/80',
+      logo: '',
       website: 'https://devtools.com',
       tier: 'silver',
       description: 'Developer tools and platforms'
     },
     {
       name: 'AI Academy',
-      logo: '/api/placeholder/160/80',
+      logo: '',
       website: 'https://aiacademy.com',
       tier: 'silver',
       description: 'AI education and training'
     },
     {
       name: 'CodeCraft',
-      logo: '/api/placeholder/160/80',
+      logo: '',
       website: 'https://codecraft.com',
       tier: 'silver',
       description: 'Software development services'
@@ -155,15 +155,11 @@ const SponsorsSection: React.FC = () => {
           {/* Sponsor Logo */}
           <div className="flex-grow flex items-center justify-center mb-4">
             <div className={`${tierConfig.logoSize} flex items-center justify-center`}>
-              <img
-                src={sponsor.logo}
-                alt={sponsor.name}
-                className="max-w-full max-h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = `https://via.placeholder.com/200x100/4F46E5/FFFFFF?text=${encodeURIComponent(sponsor.name)}`;
-                }}
-              />
+              <div className="w-full h-full bg-gradient-to-r from-primary-purple to-primary-blue rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm md:text-base text-center px-2">
+                  {sponsor.name}
+                </span>
+              </div>
             </div>
           </div>
 

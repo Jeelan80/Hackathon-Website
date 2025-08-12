@@ -33,6 +33,50 @@ const Modal: React.FC<ModalProps> = ({
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
+      
+      // Save current focus to restore later
+      const previouslyFocusedElement = document.activeElement as HTMLElement;
+      
+      // Focus trap
+      const modal = document.querySelector('[role="dialog"]');
+      if (modal) {
+        const focusableElements = modal.querySelectorAll(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        // Focus first element
+        setTimeout(() => firstElement?.focus(), 100);
+
+        // Handle tab key for focus trapping
+        const handleTabKey = (e: Event) => {
+          const keyboardEvent = e as KeyboardEvent;
+          if (keyboardEvent.key === 'Tab') {
+            if (keyboardEvent.shiftKey) {
+              if (document.activeElement === firstElement) {
+                lastElement?.focus();
+                keyboardEvent.preventDefault();
+              }
+            } else {
+              if (document.activeElement === lastElement) {
+                firstElement?.focus();
+                keyboardEvent.preventDefault();
+              }
+            }
+          }
+        };
+
+        modal.addEventListener('keydown', handleTabKey);
+        
+        return () => {
+          modal.removeEventListener('keydown', handleTabKey);
+          // Restore focus when modal closes
+          if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
+            previouslyFocusedElement.focus();
+          }
+        };
+      }
     }
 
     return () => {
@@ -67,28 +111,33 @@ const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={title ? "modal-title" : undefined}
+            aria-describedby="modal-content"
           >
             <GlassmorphismCard className="relative" glow>
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+                className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded-lg p-1"
                 aria-label="Close modal"
+                type="button"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
               {/* Title */}
               {title && (
-                <h2 className="text-2xl font-bold text-white mb-6 pr-8">
+                <h2 id="modal-title" className="text-2xl font-bold text-white mb-6 pr-8">
                   {title}
                 </h2>
               )}
 
               {/* Content */}
-              <div className="text-white/90">
+              <div id="modal-content" className="text-white/90">
                 {children}
               </div>
             </GlassmorphismCard>

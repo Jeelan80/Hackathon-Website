@@ -143,7 +143,7 @@ const ScheduleSection: React.FC = () => {
   };
 
   return (
-    <section id="schedule" className="section-padding px-8 bg-gradient-to-b from-black via-gray-900 to-black min-h-screen">
+    <section id="schedule" className="section-padding px-8 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           variants={staggerContainer}
@@ -152,7 +152,7 @@ const ScheduleSection: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-16">
+<motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="gradient-text">Event Schedule</span>
             </h2>
@@ -183,7 +183,7 @@ const ScheduleSection: React.FC = () => {
             />
 
             {/* Timeline Events */}
-            <div className="space-y-12 pb-16">
+            <div className="space-y-6 pb-8">
               {scheduleEvents.map((event, index) => (
                 <motion.div
                   key={index}
@@ -225,11 +225,11 @@ const ScheduleSection: React.FC = () => {
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                       <GlassmorphismCard 
-                        className={`p-6 border-l-4 ${getEventTypeBorder(event.type)} group cursor-pointer`}
+                        className={`p-4 border-l-4 ${getEventTypeBorder(event.type)} group cursor-pointer`}
                         glow
                       >
                         {/* Time Badge */}
-                        <div className="flex items-center gap-2 mb-3">
+                        <div className="flex items-center gap-2 mb-2">
                           <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold 
                             bg-gradient-to-r ${getEventTypeColor(event.type)} text-white`}>
                             {event.time}
@@ -238,7 +238,7 @@ const ScheduleSection: React.FC = () => {
                         </div>
 
                         {/* Event Title */}
-                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-blue transition-colors">
+                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-blue transition-colors">
                           {event.title}
                         </h3>
 
@@ -248,7 +248,7 @@ const ScheduleSection: React.FC = () => {
                         </p>
 
                         {/* Event Type Badge */}
-                        <div className="mt-4">
+                        <div className="mt-3">
                           <span className={`inline-block px-2 py-1 rounded text-xs font-medium 
                             ${event.type === 'milestone' ? 'bg-primary-purple/20 text-primary-purple' : 
                               event.type === 'workshop' ? 'bg-green-500/20 text-green-400' : 
@@ -270,7 +270,7 @@ const ScheduleSection: React.FC = () => {
           {/* Call to Action */}
           <motion.div 
             variants={fadeInUp}
-            className="text-center mt-16"
+            className="text-center mt-8"
           >
             <motion.div
               className="inline-block"

@@ -1,0 +1,126 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run type checking
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm run test:run
+
+      - name: Run accessibility tests
+        run: npm run test:accessibility
+        continue-on-error: true
+
+      - name: Check case sensitivity
+        run: npm run validate:case-sensitivity
+
+      - name: Build project
+        run: npm run build
+
+      - name: Validate deployment readiness
+        run: npm run validate:deployment
+
+      - name: Bundle size analysis
+        run: |
+          npm run build
+          npx bundlesize
+        continue-on-error: true
+
+      - name: Comment PR with results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Read build stats
+            const distPath = path.join(process.cwd(), 'dist');
+            const stats = fs.readdirSync(path.join(distPath, 'assets'));
+            
+            let comment = '## 🚀 Build Validation Results\n\n';
+            comment += '✅ All checks passed!\n\n';
+            comment += '### Bundle Analysis\n';
+            
+            stats.forEach(file => {
+              const filePath = path.join(distPath, 'assets', file);
+              const size = fs.statSync(filePath).size;
+              const sizeKB = Math.round(size / 1024);
+              comment += `- ${file}: ${sizeKB}KB\n`;
+            });
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run security audit
+        run: npm audit --audit-level=moderate
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  accessibility-audit:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Serve built files
+        run: |
+          npx serve -s dist -p 3000 &
+          sleep 5
+
+      - name: Run axe accessibility tests
+        run: |
+          npx @axe-core/cli http://localhost:3000 --exit
+        continue-on-error: true

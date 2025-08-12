@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { GlowEffect } from '../animations';
 
 interface AnimatedButtonProps {
   variant: 'primary' | 'secondary' | 'ghost';
@@ -45,21 +46,30 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     ${className}
   `;
 
-  return (
+  const button = (
     <motion.button
       className={baseClasses}
       onClick={disabled ? undefined : onClick}
       whileHover={disabled ? {} : { 
-        scale: 1.05,
-        boxShadow: glow ? '0 10px 30px rgba(79, 70, 229, 0.4)' : '0 5px 15px rgba(0, 0, 0, 0.2)'
+        boxShadow: '0 5px 15px rgba(0, 0, 0, 0.2)'
       }}
-      whileTap={disabled ? {} : { scale: 0.95 }}
+      whileTap={disabled ? {} : { opacity: 0.8 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       disabled={disabled}
     >
       {children}
     </motion.button>
   );
+
+  if (glow && variant === 'primary') {
+    return (
+      <GlowEffect color="purple" intensity="medium" size="md">
+        {button}
+      </GlowEffect>
+    );
+  }
+
+  return button;
 };
 
 export default AnimatedButton;

@@ -7,7 +7,7 @@ import {
   FaUsers,
   FaCode,
   FaTrophy,
-  FaClock,
+  // FaClock, // TODO: Use for timing-related FAQs
   FaHandshake
 } from 'react-icons/fa';
 
@@ -88,7 +88,7 @@ const FAQSection: React.FC = () => {
     );
   };
 
-  const FAQItem: React.FC<{ item: FAQItem; index: number }> = ({ item, index }) => {
+  const FAQItem: React.FC<{ item: FAQItem; index: number }> = ({ item }) => {
     const isOpen = openItems.includes(item.id);
 
     return (
