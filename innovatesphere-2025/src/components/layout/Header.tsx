@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GlassmorphismCard, AnimatedButton } from '../ui';
+import { GlassmorphismCard } from '../ui';
 import { smoothScrollTo } from '../../utils/smoothScroll';
 
 interface HeaderProps {
@@ -46,50 +46,50 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
       role="banner"
       aria-label="Site header"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-2 sm:px-4">
         <GlassmorphismCard 
           className={`transition-all duration-300 ${
             isScrolled ? 'backdrop-blur-lg bg-black/20' : 'backdrop-blur-md bg-white/5'
           }`}
         >
           <nav 
-            className="flex items-center justify-between py-2 px-6"
+            className="flex items-center justify-between py-1 sm:py-2 px-2 sm:px-4 lg:px-6"
             role="navigation"
             aria-label="Main navigation"
           >
             {/* Logo Section */}
-            <div className="flex items-center space-x-6">
-              {/* Organization Logos - Much Bigger */}
-              <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6 flex-1 min-w-0">
+              {/* Organization Logos - Responsive Sizes */}
+              <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4 flex-shrink-0">
                 <motion.img
                   src="/assets/Logos/Bti College Logo.png"
                   alt="BTI College Logo"
-                  className="h-16 md:h-20 w-auto"
+                  className="h-8 sm:h-12 md:h-16 lg:h-20 w-auto"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.2 }}
                 />
                 <motion.img
                   src="/assets/Logos/BTIIGNITE LOGO.png"
                   alt="BTI Ignite Logo"
-                  className="h-16 md:h-20 w-auto"
+                  className="h-8 sm:h-12 md:h-16 lg:h-20 w-auto"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.2 }}
                 />
                 <motion.img
                   src="/assets/Logos/CEO - BTIINGINE.png"
                   alt="BTI Engine CEO Logo"
-                  className="h-16 md:h-20 w-auto"
+                  className="h-8 sm:h-12 md:h-16 lg:h-20 w-auto"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.2 }}
                 />
               </div>
               
               {/* Separator */}
-              <div className="hidden sm:block w-px h-16 md:h-20 bg-white/20"></div>
+              <div className="hidden sm:block w-px h-8 sm:h-12 md:h-16 lg:h-20 bg-white/20 flex-shrink-0"></div>
               
-              {/* Main Event Title - Bigger */}
+              {/* Main Event Title - Responsive */}
               <motion.button
-                className="text-2xl md:text-3xl font-bold gradient-text cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded"
+                className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold gradient-text cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded truncate"
                 whileHover={{ scale: 1.05 }}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 aria-label="HACKFINITY - Go to top of page"
@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
 
             {/* Professional Menu Button */}
             <motion.button
-              className="relative p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 hover:border-white/40 hover:bg-black/60 transition-all duration-300"
+              className="relative p-2 sm:p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 hover:border-white/40 hover:bg-black/60 transition-all duration-300 flex-shrink-0"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -112,11 +112,11 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
                 className="relative"
               >
                 {isMobileMenuOpen ? (
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 ) : (
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 )}

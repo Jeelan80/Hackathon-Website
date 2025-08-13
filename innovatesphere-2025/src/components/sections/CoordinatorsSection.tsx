@@ -96,8 +96,28 @@ const CoordinatorsSection: React.FC = () => {
     }
   ];
 
-  const itemsPerSlide = 4;
+  // Responsive items per slide
+  const getItemsPerSlide = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 640) return 1; // Mobile: 1 item
+      if (window.innerWidth < 1024) return 2; // Tablet: 2 items
+      return 3; // Desktop: 3 items
+    }
+    return 3;
+  };
+
+  const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
   const totalSlides = Math.ceil(coordinators.length / itemsPerSlide);
+
+  // Update items per slide on window resize
+  React.useEffect(() => {
+    const handleResize = () => {
+      setItemsPerSlide(getItemsPerSlide());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
@@ -121,7 +141,7 @@ const CoordinatorsSection: React.FC = () => {
       whileHover={{ y: -8 }}
       className="flex-shrink-0"
     >
-      <div className="relative bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-64 h-80 transition-all duration-300 hover:border-primary-blue/60 hover:shadow-xl hover:shadow-primary-blue/20 hover:shadow-2xl group overflow-hidden">
+      <div className="relative bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-4 sm:p-6 w-full max-w-sm mx-auto h-auto min-h-[320px] sm:min-h-[360px] transition-all duration-300 hover:border-primary-blue/60 hover:shadow-xl hover:shadow-primary-blue/20 hover:shadow-2xl group overflow-hidden">
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/5 via-transparent to-primary-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -151,15 +171,17 @@ const CoordinatorsSection: React.FC = () => {
           </div>
 
           {/* Name */}
-          <h3 className="text-xl font-bold text-yellow-400 mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-orange-400 transition-all duration-300">
+          <h3 className="text-lg sm:text-xl font-bold text-yellow-400 mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-orange-400 transition-all duration-300 leading-tight">
             {coordinator.name}
           </h3>
 
           {/* Role */}
-          <p className="text-gray-300 text-sm font-medium mb-2">{coordinator.role}</p>
+          <p className="text-gray-300 text-xs sm:text-sm font-medium mb-2 leading-tight px-2">{coordinator.role}</p>
 
           {/* Department */}
-          <p className="text-gray-500 text-xs mb-6">{coordinator.department}</p>
+          {coordinator.department && (
+            <p className="text-gray-500 text-xs mb-4">{coordinator.department}</p>
+          )}
 
           {/* Social Links */}
           <div className="flex justify-center space-x-4 mt-auto">
@@ -194,7 +216,7 @@ const CoordinatorsSection: React.FC = () => {
   );
 
   return (
-    <section id="coordinators" className="section-padding px-8 bg-gradient-to-b from-black via-purple-900/10 to-black">
+    <section id="coordinators" className="section-padding px-4 sm:px-8 bg-gradient-to-b from-black via-purple-900/10 to-black">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           variants={staggerContainer}
@@ -203,46 +225,46 @@ const CoordinatorsSection: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <motion.div variants={fadeInUp} className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               <span className="gradient-text">Hackathon Crew</span>
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
               Meet the amazing team making HACKFINITY possible
             </p>
           </motion.div>
 
           {/* Carousel Container */}
           <div className="relative">
-            {/* Navigation Buttons */}
-            <div className="flex justify-between items-center mb-8">
-              <motion.button
-                onClick={prevSlide}
-                className="glass-button p-4 rounded-full hover:bg-white/10 transition-colors z-10"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                disabled={totalSlides <= 1}
-              >
-                <FaChevronLeft className="w-6 h-6 text-white" />
-              </motion.button>
+            {/* Navigation Buttons - Only show if more than one slide */}
+            {totalSlides > 1 && (
+              <div className="flex justify-between items-center mb-8 px-4 sm:px-0">
+                <motion.button
+                  onClick={prevSlide}
+                  className="glass-button p-3 sm:p-4 rounded-full hover:bg-white/10 transition-colors z-10 bg-black/40 backdrop-blur-sm border border-white/20"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                </motion.button>
 
-              <motion.button
-                onClick={nextSlide}
-                className="glass-button p-4 rounded-full hover:bg-white/10 transition-colors z-10"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                disabled={totalSlides <= 1}
-              >
-                <FaChevronRight className="w-6 h-6 text-white" />
-              </motion.button>
-            </div>
+                <motion.button
+                  onClick={nextSlide}
+                  className="glass-button p-3 sm:p-4 rounded-full hover:bg-white/10 transition-colors z-10 bg-black/40 backdrop-blur-sm border border-white/20"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                </motion.button>
+              </div>
+            )}
 
             {/* Carousel Content */}
-            <div className="overflow-hidden">
+            <div className="overflow-hidden px-4 sm:px-0">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide}
-                  className="flex justify-center gap-6"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center"
                   initial={{ opacity: 0, x: 100 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -100 }}
