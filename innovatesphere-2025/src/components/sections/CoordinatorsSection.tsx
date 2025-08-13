@@ -90,7 +90,7 @@ const CoordinatorsSection: React.FC = () => {
     {
       id: '9',
       name: 'Prajwal',
-      role: 'Finance Intern',
+      role: 'Startup Networking Intern',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Prajwal.png'
     }

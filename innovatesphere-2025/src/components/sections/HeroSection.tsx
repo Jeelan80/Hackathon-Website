@@ -63,7 +63,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => {
             {/* Subtitle */}
             <motion.div
               variants={fadeInUp}
-              className="mb-8"
+              className="mb-6"
             >
               <h2 
                 className="text-xl md:text-2xl lg:text-3xl text-gray-300 font-medium"
@@ -77,6 +77,25 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => {
                   {EVENT_CONFIG.tagline}
                 </motion.span>
               </h2>
+            </motion.div>
+
+            {/* Organizer Information */}
+            <motion.div
+              variants={fadeInUp}
+              className="mb-8"
+            >
+              <p 
+                className="text-lg md:text-xl text-yellow-400 font-semibold"
+                aria-label="Event organizer information"
+              >
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                  Organized by: <span className="gradient-text font-bold">BTI IGNITE INCUBATION COUNCIL</span>
+                </motion.span>
+              </p>
             </motion.div>
 
             {/* Description */}

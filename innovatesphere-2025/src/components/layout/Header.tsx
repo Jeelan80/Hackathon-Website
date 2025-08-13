@@ -57,69 +57,74 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
             role="navigation"
             aria-label="Main navigation"
           >
-            {/* Logo */}
-            <motion.button
-              className="text-xl font-bold gradient-text cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded"
-              whileHover={{ scale: 1.05 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              aria-label="HACKFINITY - Go to top of page"
-            >
-              HACKFINITY
-            </motion.button>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8" role="menubar">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-white/80 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded px-2 py-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  role="menuitem"
-                  aria-label={`Navigate to ${item.label} section`}
-                >
-                  {item.label}
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Desktop CTA Button */}
-            <div className="hidden md:block">
-              <AnimatedButton
-                variant="primary"
-                size="sm"
-                onClick={onRegisterClick}
-                glow
+            {/* Logo Section */}
+            <div className="flex items-center space-x-6">
+              {/* Organization Logos - Much Bigger */}
+              <div className="flex items-center space-x-4">
+                <motion.img
+                  src="/assets/Logos/Bti College Logo.png"
+                  alt="BTI College Logo"
+                  className="h-16 md:h-20 w-auto"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.img
+                  src="/assets/Logos/BTIIGNITE LOGO.png"
+                  alt="BTI Ignite Logo"
+                  className="h-16 md:h-20 w-auto"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.img
+                  src="/assets/Logos/CEO - BTIINGINE.png"
+                  alt="BTI Engine CEO Logo"
+                  className="h-16 md:h-20 w-auto"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </div>
+              
+              {/* Separator */}
+              <div className="hidden sm:block w-px h-16 md:h-20 bg-white/20"></div>
+              
+              {/* Main Event Title - Bigger */}
+              <motion.button
+                className="text-2xl md:text-3xl font-bold gradient-text cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 focus:ring-offset-black rounded"
+                whileHover={{ scale: 1.05 }}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                aria-label="HACKFINITY - Go to top of page"
               >
-                Register Now
-              </AnimatedButton>
+                HACKFINITY
+              </motion.button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-white p-2"
+            {/* Professional Menu Button */}
+            <motion.button
+              className="relative p-3 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20 hover:border-white/40 hover:bg-black/60 transition-all duration-300"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle mobile menu"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Toggle navigation menu"
             >
               <motion.div
                 animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
                 transition={{ duration: 0.2 }}
+                className="relative"
               >
                 {isMobileMenuOpen ? (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 ) : (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 )}
               </motion.div>
-            </button>
+            </motion.button>
           </nav>
 
-          {/* Mobile Menu */}
+          {/* Professional Navigation Menu */}
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
@@ -127,31 +132,40 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="md:hidden overflow-hidden border-t border-white/10"
+                className="overflow-hidden border-t border-white/20 bg-black/90 backdrop-blur-xl"
               >
-                <div className="py-4 px-6 space-y-4">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item.label}
-                      onClick={() => scrollToSection(item.href)}
-                      className="block w-full text-left text-white/80 hover:text-white transition-colors duration-200 py-2"
-                      whileHover={{ x: 10 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {item.label}
-                    </motion.button>
-                  ))}
-                  <div className="pt-4">
-                    <AnimatedButton
-                      variant="primary"
-                      size="md"
+                <div className="py-4 px-6">
+                  {/* Navigation Items - Clean List Style */}
+                  <div className="space-y-1 mb-4">
+                    {navItems.map((item, index) => (
+                      <motion.button
+                        key={item.label}
+                        onClick={() => scrollToSection(item.href)}
+                        className="w-full text-left px-4 py-3 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 font-medium"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        whileHover={{ x: 4 }}
+                      >
+                        {item.label}
+                      </motion.button>
+                    ))}
+                  </div>
+                  
+                  {/* Register Button - Minimal Style */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="pt-3 border-t border-white/10"
+                  >
+                    <button
                       onClick={onRegisterClick}
-                      glow
-                      className="w-full"
+                      className="w-full px-4 py-3 bg-primary-blue hover:bg-primary-blue/90 text-white font-semibold rounded-lg transition-colors duration-200"
                     >
                       Register Now
-                    </AnimatedButton>
-                  </div>
+                    </button>
+                  </motion.div>
                 </div>
               </motion.div>
             )}
