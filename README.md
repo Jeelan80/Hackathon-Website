@@ -1,1 +1,1 @@
-https//:hackfinity25.netlify.app
+https://hackfinity25.netlify.app
