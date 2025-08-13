@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 // import { GlassmorphismCard } from '../ui';
 import { fadeInUp, staggerContainer } from '../../utils/animations';
-import { 
-  FaChevronLeft, 
+import {
+  FaChevronLeft,
   FaChevronRight,
   FaGithub,
   FaLinkedin
@@ -25,84 +25,74 @@ const CoordinatorsSection: React.FC = () => {
   const coordinators: Coordinator[] = [
     {
       id: '1',
-      name: 'Sameer',
-      role: 'Lead Coordinator',
-      department: 'RGSAI, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/sameer',
-      linkedin: 'https://linkedin.com/in/sameer'
+      name: 'Jeelan Basha',
+      role: 'Website Designer & Technical Coordinator',
+      department: 'AI&ML, BTI',
+      image: '/assets/Photos/Hackathon Crew/Jeelan Basha.png',
+      github: 'https://github.com/jeelan80',
+      linkedin: 'https://www.linkedin.com/in/jeelan-basha-508a19314/'
     },
     {
       id: '2',
-      name: 'Jeelan Basha',
-      role: 'Technical Coordinator',
-      department: 'RGSML, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/jeelan',
-      linkedin: 'https://linkedin.com/in/jeelan'
+      name: 'Sameer',
+      role: 'Website Designer & Technical Coordinator',
+      department: 'ROAI, BTI',
+      image: '/assets/Photos/Hackathon Crew/Sameer.png',
+      github: 'https://github.com/sameersam648',
+      linkedin: 'https://www.linkedin.com/in/sameer-83733a2a6/'
     },
     {
       id: '3',
       name: 'Aman Kumar',
-      role: 'Event Coordinator',
-      department: 'RGSML, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/aman',
-      linkedin: 'https://linkedin.com/in/aman'
+      role: 'Technical Coordinator',
+      department: 'ROAI, BTI',
+      image: '/assets/Photos/Hackathon Crew/Aman Kumar.png',
+      github: 'https://github.com/Amankumar006/',
+      linkedin: 'https://github.com/Amankumar006'
     },
     {
       id: '4',
       name: 'Likhith Kumar',
-      role: 'Marketing Coordinator',
-      department: 'RGSML, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/likhith',
-      linkedin: 'https://linkedin.com/in/likhith'
+      role: 'Poster Designer & Technical Coordinator',
+      department: 'AI&ML, BTI',
+      image: '/assets/Photos/Hackathon Crew/Likhith Kumar.png',
+      github: 'https://github.com/likhithkumar',
+      linkedin: 'https://www.linkedin.com/in/likhithkumarj/'
     },
     {
       id: '5',
-      name: 'Priya Sharma',
-      role: 'Design Coordinator',
-      department: 'RGSAI, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/priya',
-      linkedin: 'https://linkedin.com/in/priya'
+      name: 'Pruthvi Narayana Reddy V',
+      role: 'Event Manager',
+      department: '',
+      image: '/assets/Photos/Hackathon Crew/Pruthvi Narayana Reddy V.jpg'
     },
     {
       id: '6',
-      name: 'Rahul Singh',
-      role: 'Logistics Coordinator',
-      department: 'RGSML, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/rahul',
-      linkedin: 'https://linkedin.com/in/rahul'
+      name: ' Apolise Dias',
+      role: 'HR Intern',
+      department: '',
+      image: '/assets/Photos/Hackathon Crew/Apolise Dias.png'
     },
     {
       id: '7',
-      name: 'Sneha Patel',
-      role: 'Content Coordinator',
-      department: 'RGSAI, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/sneha',
-      linkedin: 'https://linkedin.com/in/sneha'
+      name: 'Hemavathi',
+      role: 'Finance Intern',
+      department: '',
+      image: '/assets/Photos/Hackathon Crew/Hemavathi.png'
     },
     {
       id: '8',
-      name: 'Arjun Reddy',
-      role: 'Social Media Coordinator',
-      department: 'RGSML, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/arjun',
-      linkedin: 'https://linkedin.com/in/arjun'
+      name: 'Santhosh',
+      role: 'Finance Intern',
+      department: '',
+      image: '/assets/Photos/Hackathon Crew/Santhosh.png'
     },
     {
       id: '9',
-      name: 'Kavya Nair',
-      role: 'Registration Coordinator',
-      department: 'RGSAI, BTI',
-      image: '/api/placeholder/200/200',
-      github: 'https://github.com/kavya',
-      linkedin: 'https://linkedin.com/in/kavya'
+      name: 'Prajwal',
+      role: 'Finance Intern',
+      department: '',
+      image: '/assets/Photos/Hackathon Crew/Prajwal.png'
     }
   ];
 
@@ -134,9 +124,9 @@ const CoordinatorsSection: React.FC = () => {
       <div className="relative bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-64 h-80 transition-all duration-300 hover:border-primary-blue/60 hover:shadow-xl hover:shadow-primary-blue/20 hover:shadow-2xl group overflow-hidden">
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/5 via-transparent to-primary-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        
+
         {/* Content */}
-        <motion.div 
+        <motion.div
           className="relative z-10 flex flex-col items-center h-full text-center"
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
@@ -215,7 +205,7 @@ const CoordinatorsSection: React.FC = () => {
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="gradient-text">Hackathon Coordinators</span>
+              <span className="gradient-text">Hackathon Crew</span>
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Meet the amazing team making HACKFINITY possible
@@ -235,7 +225,7 @@ const CoordinatorsSection: React.FC = () => {
               >
                 <FaChevronLeft className="w-6 h-6 text-white" />
               </motion.button>
-              
+
               <motion.button
                 onClick={nextSlide}
                 className="glass-button p-4 rounded-full hover:bg-white/10 transition-colors z-10"
@@ -272,11 +262,10 @@ const CoordinatorsSection: React.FC = () => {
                   <motion.button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentSlide
-                        ? 'bg-gradient-to-r from-yellow-400 to-orange-400 scale-125'
-                        : 'bg-gray-600 hover:bg-gray-500'
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
+                      ? 'bg-gradient-to-r from-yellow-400 to-orange-400 scale-125'
+                      : 'bg-gray-600 hover:bg-gray-500'
+                      }`}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                   />
