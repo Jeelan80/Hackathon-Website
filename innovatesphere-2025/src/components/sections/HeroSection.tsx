@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { GlassmorphismCard, AnimatedButton } from '../ui';
 import { EVENT_CONFIG } from '../../utils/constants';
 import { fadeInUp, staggerContainer } from '../../utils/animations';
@@ -9,7 +9,9 @@ import {
   FaBook, 
   FaCode, 
   FaBrain, 
-  FaChartLine
+  FaChartLine,
+  FaImage,
+  FaTimes
 } from 'react-icons/fa';
 
 interface HeroSectionProps {
@@ -17,6 +19,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => {
+  const [isPosterOpen, setIsPosterOpen] = useState(false);
 
   return (
     <section 
@@ -180,6 +183,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => {
                   </span>
                 </AnimatedButton>
               </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.8 }}
+              >
+                <button
+                  onClick={() => setIsPosterOpen(true)}
+                  className="px-8 py-4 text-lg font-semibold min-w-[200px] bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <FaImage /> Check Out Poster
+                  </span>
+                </button>
+              </motion.div>
             </motion.div>
 
 
@@ -215,6 +233,67 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => {
           </motion.button>
         </motion.div>
       </div>
+
+      {/* Poster Modal */}
+      <AnimatePresence>
+        {isPosterOpen && (
+          <motion.div
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsPosterOpen(false)}
+          >
+            <motion.div
+              className="relative max-w-4xl max-h-[90vh] w-full"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setIsPosterOpen(false)}
+                className="absolute -top-12 right-0 z-10 p-2 text-white hover:text-red-400 transition-colors duration-200"
+                aria-label="Close poster"
+              >
+                <FaTimes className="w-8 h-8" />
+              </button>
+
+              {/* Poster Image */}
+              <div className="relative overflow-hidden rounded-xl shadow-2xl">
+                <img
+                  src="/assets/Poster.jpg"
+                  alt="HACKFINITY Event Poster"
+                  className="w-full h-full object-contain max-h-[85vh]"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDQwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjMTExODI3Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iMzAwIiBmaWxsPSIjNkI3Mjg0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCI+UG9zdGVyIE5vdCBGb3VuZDwvdGV4dD4KPC9zdmc+';
+                  }}
+                />
+                
+                {/* Gradient Overlay for Better Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/20 pointer-events-none"></div>
+              </div>
+
+              {/* Download Button */}
+              <div className="absolute bottom-4 right-4">
+                <a
+                  href="/assets/Poster.jpg"
+                  download="HACKFINITY_Poster.jpg"
+                  className="px-4 py-2 bg-primary-blue hover:bg-primary-blue/90 text-white rounded-lg transition-colors duration-200 flex items-center gap-2 shadow-lg"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Download
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

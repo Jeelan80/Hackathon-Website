@@ -102,15 +102,25 @@ const LocationSection: React.FC = () => {
                     <p className="text-gray-300 leading-relaxed mb-3">
                       Have questions about the venue or need assistance?
                     </p>
-                    <motion.a
-                      href="mailto:director@btibangalore.com"
-                      className="inline-flex items-center gap-2 text-primary-blue hover:text-primary-purple transition-colors font-semibold"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <FaEnvelope />
-                      Contact Us
-                    </motion.a>
+                    <div className="space-y-3">
+                      <motion.a
+                        href="mailto:director@btibangalore.com"
+                        className="inline-flex items-center gap-2 text-primary-blue hover:text-primary-purple transition-colors font-semibold"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <FaEnvelope />
+                        director@btibangalore.com
+                      </motion.a>
+                      <div className="text-gray-300 text-sm space-y-1">
+                        <p className="font-medium text-white mb-2">Call us:</p>
+                        <div className="flex flex-col gap-1">
+                          <a href="tel:8197973038" className="hover:text-primary-blue transition-colors">📞 8197973038</a>
+                          <a href="tel:7829701625" className="hover:text-primary-blue transition-colors">📞 7829701625</a>
+                          <a href="tel:9632724212" className="hover:text-primary-blue transition-colors">📞 9632724212</a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </GlassmorphismCard>

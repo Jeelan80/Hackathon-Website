@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'py-2' : 'py-4'
+        isScrolled ? 'py-1' : 'py-2'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ onRegisterClick }) => {
           }`}
         >
           <nav 
-            className="flex items-center justify-between py-3 px-6"
+            className="flex items-center justify-between py-2 px-6"
             role="navigation"
             aria-label="Main navigation"
           >

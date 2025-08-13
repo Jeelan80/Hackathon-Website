@@ -93,17 +93,32 @@ const Footer: React.FC = () => {
               >
                 Get in Touch
               </motion.h4>
-              <motion.a 
-                href="mailto:director@btibangalore.com"
-                className="text-primary-blue hover:text-primary-purple transition-colors duration-200 text-sm"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-              >
-                director@btibangalore.com
-              </motion.a>
+              <div className="space-y-2">
+                <motion.a 
+                  href="mailto:director@btibangalore.com"
+                  className="block text-primary-blue hover:text-primary-purple transition-colors duration-200 text-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  director@btibangalore.com
+                </motion.a>
+                <motion.div
+                  className="text-white/70 text-sm space-y-1"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex flex-col items-center gap-1">
+                    <a href="tel:8197973038" className="hover:text-primary-blue transition-colors">8197973038</a>
+                    <a href="tel:7829701625" className="hover:text-primary-blue transition-colors">7829701625</a>
+                    <a href="tel:9632724212" className="hover:text-primary-blue transition-colors">9632724212</a>
+                  </div>
+                </motion.div>
+              </div>
             </div>
 
             {/* Social Links */}
