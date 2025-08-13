@@ -36,7 +36,7 @@ const CoordinatorsSection: React.FC = () => {
       id: '2',
       name: 'Sameer',
       role: 'Website Designer & Technical Coordinator',
-      department: 'ROAI, BTI',
+      department: 'ROAI, Full Stack Intern(BTI IGNITE)',
       image: '/assets/Photos/Hackathon Crew/Sameer.png',
       github: 'https://github.com/sameersam648',
       linkedin: 'https://www.linkedin.com/in/sameer-83733a2a6/'
@@ -54,7 +54,7 @@ const CoordinatorsSection: React.FC = () => {
       id: '4',
       name: 'Likhith Kumar',
       role: 'Poster Designer & Technical Coordinator',
-      department: 'AI&ML, BTI',
+      department: 'AI&ML, Full Stack Intern(BTI IGNITE)',
       image: '/assets/Photos/Hackathon Crew/Likhith Kumar.png',
       github: 'https://github.com/likhithkumar',
       linkedin: 'https://www.linkedin.com/in/likhithkumarj/'
@@ -62,35 +62,35 @@ const CoordinatorsSection: React.FC = () => {
     {
       id: '5',
       name: 'Pruthvi Narayana Reddy V',
-      role: 'Event Manager',
+      role: 'Event Manager(Students Seceratary BTI)',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Pruthvi Narayana Reddy V.jpg'
     },
     {
       id: '6',
       name: ' Apolise Dias',
-      role: 'HR Intern',
+      role: 'HR Intern(BTI IGNITE)',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Apolise Dias.png'
     },
     {
       id: '7',
       name: 'Hemavathi',
-      role: 'Finance Intern',
+      role: 'Finance Intern(BTI IGNITE)',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Hemavathi.png'
     },
     {
       id: '8',
       name: 'Santhosh',
-      role: 'Finance Intern',
+      role: 'Finance Intern(BTI IGNITE)',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Santhosh.png'
     },
     {
       id: '9',
       name: 'Prajwal',
-      role: 'Startup Networking Intern',
+      role: 'Startup Networking Intern(BTI IGNITE)',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Prajwal.png'
     }

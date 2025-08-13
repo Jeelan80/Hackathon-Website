@@ -2,11 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 // import { GlassmorphismCard } from '../ui';
 import { fadeInUp, staggerContainer } from '../../utils/animations';
-// import { 
-//   FaLinkedin,
-//   FaTwitter,
-//   FaGithub
-// } from 'react-icons/fa';
+import {
+  FaLinkedin
+} from 'react-icons/fa';
 
 interface Person {
   id: string;
@@ -60,7 +58,7 @@ const JudgesSection: React.FC = () => {
       title: 'Chief Technology Officer (CTO)',
       company: 'BTI IGNITE INCUBATION COUNCIL',
       image: '/assets/Photos/Dr. Prabhakar Sekar.png',
-      linkedin: '',
+      linkedin: 'https://www.linkedin.com/in/dr-prabhakar-sekar-27514544?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
       bio: 'Technology visionary leading innovation and technical excellence in startup incubation.',
       expertise: ['Technology Leadership', 'Innovation', 'Technical Strategy']
     }
@@ -129,9 +127,9 @@ const JudgesSection: React.FC = () => {
       <div className="relative h-full bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-900/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-8 transition-all duration-300 hover:border-primary-blue/60 hover:shadow-2xl hover:shadow-primary-blue/20">
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-purple/5 via-transparent to-primary-blue/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        
+
         {/* Content */}
-        <div className="relative z-10 flex flex-col h-full text-center">
+        <div className="relative z-10 flex flex-col h-full text-center justify-between">
           {/* Profile Image */}
           <div className="relative mb-6">
             <motion.div
@@ -162,10 +160,29 @@ const JudgesSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Bio */}
-          <p className="text-gray-300 text-sm leading-relaxed flex-grow opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-            {person.bio}
-          </p>
+          <div className="flex-grow flex flex-col justify-between">
+            {/* Bio */}
+            <p className="text-gray-300 text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity duration-300 mb-4">
+              {person.bio}
+            </p>
+
+            {/* Social Links */}
+            {person.linkedin && (
+              <div className="flex justify-center">
+                <motion.a
+                  href={person.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition-colors shadow-lg"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={`${person.name} LinkedIn Profile`}
+                >
+                  <FaLinkedin className="w-5 h-5" />
+                </motion.a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -193,7 +210,7 @@ const JudgesSection: React.FC = () => {
 
 
           {/* Static Grid Container */}
-          <motion.div 
+          <motion.div
             variants={fadeInUp}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto"
           >
@@ -203,7 +220,7 @@ const JudgesSection: React.FC = () => {
           </motion.div>
 
           {/* Call to Action */}
-          <motion.div 
+          <motion.div
             variants={fadeInUp}
             className="text-center mt-16"
           >
