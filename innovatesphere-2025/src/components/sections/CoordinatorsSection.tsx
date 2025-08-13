@@ -82,7 +82,7 @@ const CoordinatorsSection: React.FC = () => {
     },
     {
       id: '8',
-      name: 'Santhosh',
+      name: 'Santhosh Kumar K',
       role: 'Finance Intern(BTI IGNITE)',
       department: '',
       image: '/assets/Photos/Hackathon Crew/Santhosh.png'

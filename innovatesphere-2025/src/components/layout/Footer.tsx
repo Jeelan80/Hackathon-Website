@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
     },
     {
       name: 'Instagram',
-      href: 'https://www.instagram.com/bti_incubation_centre/profilecard/?igsh=MWlhNGhjeTQxZ2dmbg==',
+      href: 'https://www.instagram.com/bti_ignite_incubation_council?igsh=MWlhNGhjeTQxZ2dmbg%3D%3D&utm_source=qr',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5a4.25 4.25 0 004.25 4.25h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-2.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/>
