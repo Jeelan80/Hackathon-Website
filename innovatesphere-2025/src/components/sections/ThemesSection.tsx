@@ -11,7 +11,8 @@ import {
   FaChevronUp,
   FaLightbulb,
   FaUsers,
-  FaCog
+  FaCog,
+  FaRocket
 } from 'react-icons/fa';
 
 interface Theme {
@@ -107,6 +108,31 @@ const ThemesSection: React.FC = () => {
       whyChosen: [
         'Direct personal benefit — creators can use what they build',
         'Great space for IoT, mobile, and AI-lite solutions'
+      ]
+    },
+    {
+      id: 'open-innovation',
+      title: 'Open Innovation',
+      shortDescription: 'Think beyond boundaries — create groundbreaking solutions for any challenge you\'re passionate about.',
+      icon: <FaRocket className="text-3xl" />,
+      color: 'from-indigo-500 to-cyan-600',
+      examples: [
+        'AI-powered Mental Health Companion for students',
+        'Blockchain-based Skill Verification System',
+        'AR/VR Learning Platform for remote education',
+        'Sustainable Energy Management Dashboard',
+        'Cross-platform Accessibility Tools'
+      ],
+      realImpact: [
+        'Encourages breakthrough thinking and disruptive innovation',
+        'Allows exploration of cutting-edge technologies and methodologies',
+        'Creates solutions that could reshape entire industries'
+      ],
+      whyChosen: [
+        'Provides freedom for truly innovative and experimental ideas',
+        'Attracts participants with unique visions and advanced technical skills',
+        'Enables exploration of emerging technologies like AI, blockchain, AR/VR',
+        'Perfect for interdisciplinary solutions combining multiple domains'
       ]
     }
   ];
