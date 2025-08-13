@@ -54,12 +54,12 @@ const LocationSection: React.FC = () => {
                     <FaMapMarkerAlt className="text-xl text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Venue Address</h3>
+                    <h3 className="text-xl font-bold text-white mb-2">Address</h3>
                     <p className="text-gray-300 leading-relaxed">
-                      Bangalore Technological Institute<br />
-                      K.R. Road, V.V. Puram<br />
-                      Bangalore, Karnataka 560004<br />
-                      India
+                      BTI Ignite Incubation Council,<br />
+                      Third Floor, #66/5 Kodathi Village,<br />
+                      Varthoor, Hobli, Bangaluru (Urban),<br />
+                      Karnataka - 560035
                     </p>
                   </div>
                 </div>
